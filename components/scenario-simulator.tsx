@@ -44,7 +44,7 @@ export default function ScenarioSimulator() {
       </div>
 
       {/* Predicted Impact Box */}
-      <div className="space-y-3 rounded-lg subtle-border bg-background p-4">
+      <div className="space-y-3 rounded-lg subtle-border bg-secondary/40 p-4">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
           Predicted Impact
         </p>
@@ -88,11 +88,6 @@ export default function ScenarioSimulator() {
           </p>
         </div>
       </div>
-
-      {/* Action Button */}
-      <button className="w-full rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground transition-opacity hover:opacity-90">
-        Simulate This Scenario
-      </button>
     </div>
   )
 }
