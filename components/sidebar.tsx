@@ -45,10 +45,10 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
           isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
-        {/* Logo Section */}
-        <div className="border-b border-border px-6 py-8">
-          <h2 className="font-serif text-2xl font-semibold text-foreground" style={{ letterSpacing: '0.05em' }}>Base</h2>
-          <p className="text-xs text-muted-foreground mt-1">System Foundation</p>
+        {/* Logo Section - Remove branding to avoid duplication */}
+        <div className="border-b border-border px-6 py-6 flex items-center justify-between">
+          <h3 className="font-serif text-xs font-semibold text-foreground uppercase tracking-wide">Context</h3>
+          <span className="text-xs text-muted-foreground">Today</span>
         </div>
 
         {/* History Section */}
