@@ -1,4 +1,4 @@
-import { streamText } from 'ai'
+import { streamText, convertToModelMessages } from 'ai'
 
 const systemPrompt = `You are SellerGPT, an AI business assistant specifically designed for merchants and e-commerce entrepreneurs. Your expertise includes:
 
@@ -18,10 +18,10 @@ export const maxDuration = 30
 
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json()
+    const body = await req.json()
+    const messages = body.messages || []
 
     console.log('[v0] API: Received', messages.length, 'messages')
-    console.log('[v0] API: Last message:', messages[messages.length - 1]?.content.substring(0, 50))
 
     if (!messages || messages.length === 0) {
       return new Response(JSON.stringify({ error: 'No messages provided' }), {
@@ -30,26 +30,58 @@ export async function POST(req: Request) {
       })
     }
 
+    // Format messages for streamText
+    const formattedMessages = messages.map((msg: { role: string; content: string }) => ({
+      role: msg.role as 'user' | 'assistant',
+      content: msg.content,
+    }))
+
+    console.log('[v0] API: Calling streamText with', formattedMessages.length, 'messages')
+
     const result = streamText({
       model: 'anthropic/claude-opus-4.5',
       system: systemPrompt,
-      messages: messages.map((msg: { role: string; content: string }) => ({
-        role: msg.role,
-        content: msg.content,
-      })),
-      abortSignal: req.signal,
+      messages: formattedMessages,
+      maxOutputTokens: 1024,
     })
 
-    console.log('[v0] API: streamText initialized')
+    console.log('[v0] API: streamText result created')
 
-    // Use the built-in toTextStreamResponse for proper SSE encoding
-    const sseStream = result.toTextStreamResponse()
-    console.log('[v0] API: Returning SSE stream')
-    return sseStream
+    // Create a simple SSE response
+    const encoder = new TextEncoder()
+    let totalText = ''
+
+    const readable = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const chunk of result.textStream) {
+            totalText += chunk
+            console.log('[v0] API: Text chunk:', chunk)
+            // Send each chunk as SSE data
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: chunk })}\n\n`))
+          }
+          console.log('[v0] API: Stream complete, total text:', totalText.length, 'chars')
+          controller.enqueue(encoder.encode('data: [DONE]\n\n'))
+          controller.close()
+        } catch (error) {
+          console.error('[v0] API: Stream error:', error)
+          controller.error(error)
+        }
+      },
+    })
+
+    return new Response(readable, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        Connection: 'keep-alive',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
   } catch (error) {
-    console.error('[v0] API: Chat error:', error)
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-    return new Response(JSON.stringify({ error: errorMessage }), {
+    console.error('[v0] API: Error:', error)
+    const message = error instanceof Error ? error.message : String(error)
+    return new Response(JSON.stringify({ error: message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     })

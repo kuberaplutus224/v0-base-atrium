@@ -116,43 +116,36 @@ export default function ChatInterface() {
         const { done, value } = await reader.read()
         if (done) break
 
-        const chunk = decoder.decode(value, { stream: true })
-        buffer += chunk
-        console.log('[v0] Chat: Raw chunk:', chunk)
-
-        // Process complete lines only
+        buffer += decoder.decode(value, { stream: true })
         const lines = buffer.split('\n')
-        buffer = lines.pop() || '' // Keep incomplete line in buffer
+        buffer = lines.pop() || ''
 
         for (const line of lines) {
-          const trimmed = line.trim()
-          if (!trimmed) continue
-
-          // Handle streaming text format
-          if (trimmed.startsWith('data:')) {
-            const data = trimmed.slice(5).trim()
+          if (!line.trim()) continue
+          if (line.startsWith('data:')) {
+            const data = line.slice(5).trim()
             if (data === '[DONE]') {
-              console.log('[v0] Chat: Stream complete')
+              console.log('[v0] Chat: Stream finished')
               continue
             }
             try {
-              // toTextStreamResponse returns plain text chunks, not JSON
-              if (data) {
-                assistantContent += data
-                console.log('[v0] Chat: Added text:', data)
+              const parsed = JSON.parse(data)
+              if (parsed.text) {
+                assistantContent += parsed.text
+                console.log('[v0] Chat: Added text:', parsed.text)
               }
             } catch (e) {
-              console.log('[v0] Chat: Parse error:', e)
+              console.log('[v0] Chat: Could not parse:', data)
             }
           }
         }
       }
 
-      console.log('[v0] Chat: Final content:', assistantContent)
-
-      if (!assistantContent) {
-        throw new Error('Empty response from AI')
+      if (!assistantContent.trim()) {
+        throw new Error('No text content received from AI')
       }
+
+      console.log('[v0] Chat: Final response:', assistantContent.substring(0, 100))
 
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
