@@ -7,7 +7,6 @@ import { useChat } from '@ai-sdk/react'
 import { DefaultChatTransport } from 'ai'
 import { Send, Copy, Share2 } from 'lucide-react'
 import MorningBriefing from './morning-briefing'
-import ScenarioSimulator from './scenario-simulator'
 
 interface Message {
   id: string
@@ -141,129 +140,115 @@ export default function ChatInterface() {
   }
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-4">
-        <h2 className="font-serif text-2xl font-semibold text-foreground">AI Assistant</h2>
-        <p className="text-sm text-muted-foreground">
-          Ask SellerGPT anything about your business, sales strategies, and performance insights.
-        </p>
+    <div className="flex flex-col gap-6">
+      {/* Pinned Morning Briefing */}
+      <div className="sticky top-0 z-20 pb-4">
+        <MorningBriefing />
       </div>
 
-      <div className="flex flex-col gap-6 rounded-lg border border-border bg-card p-8 ambient-glow">
-        {/* Messages Container */}
-        <div className="flex h-96 flex-col gap-4 overflow-y-auto rounded-lg bg-background p-4">
-          {localMessages.length === 0 ? (
-            <div className="flex flex-1 flex-col items-center justify-center gap-4">
-              <MorningBriefing />
-              <div className="w-full max-w-sm">
-                <ScenarioSimulator />
-              </div>
-              <p className="text-center text-muted-foreground">
-                Start a conversation with your AI business assistant
-              </p>
-            </div>
-          ) : (
-            <>
-              <div className="mb-2">
-                <MorningBriefing />
-              </div>
-              {localMessages.map((message, index) => (
-                <React.Fragment key={message.id}>
+      {/* Messages Container */}
+      <div className="flex flex-col gap-4">
+        {localMessages.length === 0 ? (
+          <div className="flex flex-col items-center justify-center gap-6 py-12">
+            <p className="text-center text-muted-foreground">
+              Start a conversation with your AI business assistant
+            </p>
+          </div>
+        ) : (
+          <>
+            {localMessages.map((message, index) => (
+              <React.Fragment key={message.id}>
+                <div
+                  className={`animate-fadeIn flex ${
+                    message.role === 'user' ? 'justify-end' : 'justify-start'
+                  }`}
+                >
                   <div
-                    className={`animate-fadeIn flex ${
-                      message.role === 'user' ? 'justify-end' : 'justify-start'
+                    className={`max-w-md ${
+                      message.role === 'user'
+                        ? 'rounded-3xl rounded-br-none bg-secondary text-secondary-foreground'
+                        : 'rounded-lg'
                     }`}
                   >
-                    <div
-                      className={`max-w-xs ${
-                        message.role === 'user'
-                          ? 'rounded-3xl rounded-br-none bg-secondary text-secondary-foreground'
-                          : 'rounded-lg'
-                      }`}
-                    >
-                      {message.role === 'assistant' ? (
-                        <div className="space-y-2">
-                          <div className="flex items-center gap-2 px-4 pt-3">
-                            <div className="h-6 w-6 rounded-full bg-accent" />
-                            <span className="text-xs font-semibold text-muted-foreground">
-                              SellerGPT
-                            </span>
-                          </div>
-                          <div className="px-4 pb-3 text-sm leading-relaxed">
-                            {parseMessageWithChips(message.content).map((part, idx) => {
-                              if (typeof part === 'string') {
-                                return <span key={idx}>{part}</span>
-                              }
-                              return (
-                                <button
-                                  key={idx}
-                                  className="mx-1 inline-block rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent transition-colors hover:bg-accent/20"
-                                >
-                                  {part.text}
-                                </button>
-                              )
-                            })}
-                          </div>
-                          <div className="flex items-center justify-between border-t border-border px-4 py-2">
-                            <span className="text-xs text-muted-foreground">
-                              Generated from Square Sales Data // 99% Accuracy
-                            </span>
-                            <div className="flex gap-1">
-                              <button
-                                onClick={() => handleCopyToClipboard(message.content, message.id)}
-                                className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-secondary/30"
-                                title="Copy to clipboard"
-                              >
-                                <Copy className="h-3.5 w-3.5" />
-                              </button>
-                              <button
-                                onClick={() => handleShareToTeam(message.content)}
-                                className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-secondary/30"
-                                title="Share to team"
-                              >
-                                <Share2 className="h-3.5 w-3.5" />
-                              </button>
-                            </div>
-                          </div>
-                          {copiedId === message.id && (
-                            <div className="px-4 pb-2 text-xs text-accent">✓ Copied</div>
-                          )}
+                    {message.role === 'assistant' ? (
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 px-4 pt-3">
+                          <div className="h-6 w-6 rounded-full bg-accent" />
+                          <span className="text-xs font-semibold text-muted-foreground">
+                            SellerGPT
+                          </span>
                         </div>
-                      ) : (
-                        <div className="px-4 py-3">
-                          <p className="break-words text-sm leading-relaxed">{message.content}</p>
+                        <div className="px-4 pb-3 text-sm leading-relaxed">
+                          {parseMessageWithChips(message.content).map((part, idx) => {
+                            if (typeof part === 'string') {
+                              return <span key={idx}>{part}</span>
+                            }
+                            return (
+                              <button
+                                key={idx}
+                                className="mx-1 inline-block rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent transition-colors hover:bg-accent/20"
+                              >
+                                {part.text}
+                              </button>
+                            )
+                          })}
                         </div>
-                      )}
-                    </div>
-                  </div>
-                  {message.role === 'assistant' && index === localMessages.length - 1 && (
-                    <div className="mt-2 w-full max-w-sm">
-                      <ScenarioSimulator />
-                    </div>
-                  )}
-                </React.Fragment>
-              ))}
-              {isLoading && (
-                <div className="flex animate-fadeIn justify-start">
-                  <div className="rounded-lg px-4 py-3">
-                    <p className="shimmer-text text-sm font-medium">Reviewing your ledger...</p>
+                        <div className="flex items-center justify-between border-t border-border px-4 py-2">
+                          <span className="text-xs text-muted-foreground">
+                            Generated from Square Sales Data // 99% Accuracy
+                          </span>
+                          <div className="flex gap-1">
+                            <button
+                              onClick={() => handleCopyToClipboard(message.content, message.id)}
+                              className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-secondary/30"
+                              title="Copy to clipboard"
+                            >
+                              <Copy className="h-3.5 w-3.5" />
+                            </button>
+                            <button
+                              onClick={() => handleShareToTeam(message.content)}
+                              className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-secondary/30"
+                              title="Share to team"
+                            >
+                              <Share2 className="h-3.5 w-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                        {copiedId === message.id && (
+                          <div className="px-4 pb-2 text-xs text-accent">✓ Copied</div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="px-4 py-3">
+                        <p className="break-words text-sm leading-relaxed">{message.content}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
-              )}
-              <div ref={messagesEndRef} />
-            </>
-          )}
-        </div>
+              </React.Fragment>
+            ))}
+            {isLoading && (
+              <div className="flex animate-fadeIn justify-start">
+                <div className="rounded-lg px-4 py-3">
+                  <p className="shimmer-text text-sm font-medium">Reviewing your ledger...</p>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </>
+        )}
+      </div>
 
-        {/* Input Form */}
-        <form onSubmit={handleSendMessage} className="flex gap-2">
+      {/* Input Form - Fixed at bottom */}
+      <form onSubmit={handleSendMessage} className="sticky bottom-0 bg-background/95 backdrop-blur-sm border-t border-border p-4 -mx-4">
+        <div className="flex gap-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask me anything..."
             disabled={isLoading}
-            className="flex-1 rounded-lg border border-border bg-background px-4 py-3 text-sm placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50"
+            className="flex-1 rounded-lg border border-border bg-card px-4 py-3 text-sm placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50"
           />
           <button
             type="submit"
@@ -272,8 +257,8 @@ export default function ChatInterface() {
           >
             <Send className="h-4 w-4" />
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   )
 }

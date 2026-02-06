@@ -6,18 +6,18 @@ export default function MorningBriefing() {
   const briefPoints = [
     'Revenue up 12% vs yesterday',
     'Peak transaction hour shifted to 10 AM',
-    'Product inventory alert on bestseller',
+    'Oat Milk inventory alert - low for weekend',
   ]
 
   return (
-    <div className="rounded-lg subtle-border bg-secondary/50 p-6">
-      <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/20">
+    <div className="rounded-lg border p-6" style={{ borderColor: '#E6E1D9', backgroundColor: '#F1ECE5' }}>
+      <div className="flex items-start gap-4">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full flex-shrink-0" style={{ backgroundColor: 'rgba(209, 99, 60, 0.1)' }}>
           <Coffee className="h-5 w-5 text-accent" />
         </div>
         <div className="flex-1">
-          <h3 className="font-serif text-lg font-semibold text-foreground">Daily Brief</h3>
-          <p className="mb-4 text-xs text-muted-foreground">Yesterday's performance snapshot</p>
+          <h3 className="font-serif text-sm font-semibold text-foreground">Daily Brief</h3>
+          <p className="mb-3 text-xs text-muted-foreground">Yesterday's performance snapshot</p>
           <ul className="space-y-2">
             {briefPoints.map((point, idx) => (
               <li key={idx} className="flex items-start gap-2">
