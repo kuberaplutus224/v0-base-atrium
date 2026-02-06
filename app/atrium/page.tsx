@@ -1,7 +1,5 @@
 'use client'
 
-import { useState } from 'react'
-import Sidebar from '@/components/sidebar'
 import Header from '@/components/header'
 import PredictiveRevenueForecast from '@/components/predictive-revenue-forecast'
 import AnomalyDetectionAlerts from '@/components/anomaly-detection-alerts'
@@ -14,18 +12,14 @@ import ExecutiveSummary from '@/components/executive-summary'
 import OpportunityDetection from '@/components/opportunity-detection'
 
 export default function AtriumPage() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-
   return (
     <>
-      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-
-      {/* Main Content Wrapper */}
-      <div className="md:ml-80 flex flex-col h-screen bg-background">
+      {/* Full Width Layout - No Sidebar */}
+      <div className="flex flex-col h-screen bg-background">
         {/* Shared Header with Toggle */}
         <Header />
 
-        {/* Main Content Area */}
+        {/* Main Content Area - Full Width */}
         <main className="flex-1 overflow-y-auto">
           <div className="mx-auto max-w-7xl px-4 py-8 md:px-8">
             {/* Executive Summary Row */}
