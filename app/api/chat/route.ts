@@ -1,4 +1,4 @@
-import { streamText, convertToModelMessages } from 'ai'
+import { generateText } from 'ai'
 
 const systemPrompt = `You are SellerGPT, an AI business assistant specifically designed for merchants and e-commerce entrepreneurs. Your expertise includes:
 
@@ -22,55 +22,45 @@ export async function POST(req: Request) {
     const messages = body.messages || []
 
     console.log('[v0] API: Received', messages.length, 'messages')
+    console.log('[v0] API: Last message content:', messages[messages.length - 1]?.content?.substring(0, 50))
 
     if (!messages || messages.length === 0) {
-      return new Response(JSON.stringify({ error: 'No messages provided' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      })
+      return Response.json({ error: 'No messages provided' }, { status: 400 })
     }
 
-    // Format messages for streamText
     const formattedMessages = messages.map((msg: { role: string; content: string }) => ({
       role: msg.role as 'user' | 'assistant',
       content: msg.content,
     }))
 
-    console.log('[v0] API: Calling streamText with', formattedMessages.length, 'messages')
+    console.log('[v0] API: Calling generateText with model: anthropic/claude-opus-4.5')
 
-    const result = streamText({
+    const result = await generateText({
       model: 'anthropic/claude-opus-4.5',
       system: systemPrompt,
       messages: formattedMessages,
       maxOutputTokens: 1024,
     })
 
-    console.log('[v0] API: streamText result created, starting stream...')
+    console.log('[v0] API: generateText completed')
+    console.log('[v0] API: Result text length:', result.text.length)
+    console.log('[v0] API: Result preview:', result.text.substring(0, 100))
 
-    // Create a simple SSE response
+    // Return as streaming SSE-like format for compatibility with client
     const encoder = new TextEncoder()
-    let totalText = ''
-    let chunkCount = 0
+    const text = result.text
 
     const readable = new ReadableStream({
-      async start(controller) {
-        try {
-          console.log('[v0] API: Starting textStream iteration')
-          for await (const chunk of result.textStream) {
-            chunkCount++
-            totalText += chunk
-            console.log('[v0] API: Chunk', chunkCount, ':', JSON.stringify(chunk))
-            const sseMessage = `data: ${JSON.stringify({ text: chunk })}\n\n`
-            console.log('[v0] API: Sending SSE:', JSON.stringify(sseMessage))
-            controller.enqueue(encoder.encode(sseMessage))
-          }
-          console.log('[v0] API: Stream iteration complete, total chunks:', chunkCount, 'total chars:', totalText.length)
-          controller.enqueue(encoder.encode('data: [DONE]\n\n'))
-          controller.close()
-        } catch (error) {
-          console.error('[v0] API: Stream error:', error)
-          controller.error(error)
+      start(controller) {
+        // Send the full text in chunks to simulate streaming
+        const chunkSize = 50
+        for (let i = 0; i < text.length; i += chunkSize) {
+          const chunk = text.slice(i, i + chunkSize)
+          const sseMessage = `data: ${JSON.stringify({ text: chunk })}\n\n`
+          controller.enqueue(encoder.encode(sseMessage))
         }
+        controller.enqueue(encoder.encode('data: [DONE]\n\n'))
+        controller.close()
       },
     })
 
@@ -79,15 +69,13 @@ export async function POST(req: Request) {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         Connection: 'keep-alive',
-        'Access-Control-Allow-Origin': '*',
       },
     })
   } catch (error) {
     console.error('[v0] API: Error:', error)
     const message = error instanceof Error ? error.message : String(error)
-    return new Response(JSON.stringify({ error: message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    console.error('[v0] API: Full error stack:', error)
+    return Response.json({ error: message }, { status: 500 })
   }
 }
+

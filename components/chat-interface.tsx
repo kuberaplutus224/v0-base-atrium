@@ -114,52 +114,32 @@ export default function ChatInterface() {
 
       while (true) {
         const { done, value } = await reader.read()
-        if (done) {
-          console.log('[v0] Chat: Stream ended')
-          break
-        }
+        if (done) break
 
-        const chunk = decoder.decode(value, { stream: true })
-        console.log('[v0] Chat: Raw chunk:', JSON.stringify(chunk))
-        buffer += chunk
+        buffer += decoder.decode(value, { stream: true })
         const lines = buffer.split('\n')
         buffer = lines.pop() || ''
 
         for (const line of lines) {
-          const trimmed = line.trim()
-          console.log('[v0] Chat: Processing line:', JSON.stringify(trimmed))
+          if (!line.trim() || !line.startsWith('data:')) continue
           
-          if (!trimmed) continue
-          if (trimmed.startsWith('data:')) {
-            const data = trimmed.slice(5).trim()
-            console.log('[v0] Chat: SSE data:', JSON.stringify(data))
-            
-            if (data === '[DONE]') {
-              console.log('[v0] Chat: Stream finished marker received')
-              continue
+          const data = line.slice(5).trim()
+          if (data === '[DONE]') continue
+          
+          try {
+            const parsed = JSON.parse(data)
+            if (parsed.text) {
+              assistantContent += parsed.text
             }
-            try {
-              const parsed = JSON.parse(data)
-              console.log('[v0] Chat: Parsed JSON:', parsed)
-              if (parsed.text) {
-                assistantContent += parsed.text
-                console.log('[v0] Chat: Added text, total length now:', assistantContent.length)
-              }
-            } catch (e) {
-              console.log('[v0] Chat: JSON parse error:', e, 'on data:', data)
-            }
+          } catch (e) {
+            console.log('[v0] Parse error:', e)
           }
         }
       }
 
-      console.log('[v0] Chat: Final assistantContent length:', assistantContent.length)
-      console.log('[v0] Chat: Final assistantContent:', assistantContent)
-
       if (!assistantContent.trim()) {
         throw new Error('No text content received from AI')
       }
-
-      console.log('[v0] Chat: Final response:', assistantContent.substring(0, 100))
 
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -169,7 +149,7 @@ export default function ChatInterface() {
 
       setLocalMessages((prev) => [...prev, assistantMessage])
     } catch (error) {
-      console.error('[v0] Chat error:', error)
+      console.error('[v0] Error:', error)
       const errorMsg = error instanceof Error ? error.message : 'Failed to get response'
       const errorMessage: Message = {
         id: (Date.now() + 2).toString(),
