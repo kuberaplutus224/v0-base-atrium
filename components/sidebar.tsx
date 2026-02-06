@@ -45,12 +45,6 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
           isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
-        {/* Logo Section - Remove branding to avoid duplication */}
-        <div className="border-b border-border px-6 py-6 flex items-center justify-between">
-          <h3 className="font-serif text-xs font-semibold text-foreground uppercase tracking-wide">Context</h3>
-          <span className="text-xs text-muted-foreground">Today</span>
-        </div>
-
         {/* History Section */}
         <div className="flex-1 overflow-y-auto border-b border-border">
           <div className="p-6 space-y-8">
