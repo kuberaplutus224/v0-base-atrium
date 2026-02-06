@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Header from '@/components/header'
 import StatsGrid from '@/components/stats-grid'
 import ChatInterface from '@/components/chat-interface'
+import NextBestStep from '@/components/next-best-step'
 
 export default function Page() {
   const [stats, setStats] = useState({
@@ -13,7 +14,7 @@ export default function Page() {
   })
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background pb-24">
       <div className="mx-auto max-w-6xl">
         <Header />
         <div className="space-y-12 px-4 py-12 md:px-8">
@@ -21,6 +22,7 @@ export default function Page() {
           <ChatInterface />
         </div>
       </div>
+      <NextBestStep />
     </main>
   )
 }
