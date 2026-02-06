@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,8..72,400;0,8..72,600;1,8..72,400&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 251 90% 98%;
+    --foreground: 25 15% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 25 15% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 15% 20%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 35 40% 88%;
+    --secondary-foreground: 25 15% 20%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 17 53% 54%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 35 15% 86%;
+    --input: 0 0% 89.8%;
+    --ring: 17 53% 54%;
+    --chart-1: 127 70% 50%;
+    --chart-2: 207 70% 60%;
+    --chart-3: 17 53% 54%;
+    --chart-4: 47 89% 68%;
+    --chart-5: 35 40% 70%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-semibold;
+  }
+}
