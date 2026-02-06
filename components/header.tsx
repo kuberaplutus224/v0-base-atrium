@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     <header className="border-b border-border bg-card">
-      <div className="px-4 py-8 md:px-8">
+      <div className="px-4 py-5 md:px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Minimalist Base Logo */}
