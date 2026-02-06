@@ -33,7 +33,7 @@ export default function Page() {
       <Header />
 
       {/* Main Content Wrapper */}
-      <div className="md:ml-80 flex flex-col h-[calc(100vh-73px)]">
+      <div className="md:ml-80 flex flex-col h-[calc(100vh-89px)]">
         {/* Ticker Row */}
         <TickerRow stats={stats} onStatClick={handleStatClick} />
 
