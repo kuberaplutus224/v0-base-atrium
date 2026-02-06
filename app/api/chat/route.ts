@@ -27,7 +27,27 @@ export async function POST(req: Request) {
       })),
     })
 
-    return result.toUIMessageStreamResponse()
+    // Create a custom SSE stream response
+    const encoder = new TextEncoder()
+    const customStream = new ReadableStream({
+      async start(controller) {
+        const stream = result.textStream
+        for await (const chunk of stream) {
+          const sseMessage = `data: ${JSON.stringify({ type: 'text-delta', delta: chunk })}\n\n`
+          controller.enqueue(encoder.encode(sseMessage))
+        }
+        controller.enqueue(encoder.encode('data: [DONE]\n\n'))
+        controller.close()
+      },
+    })
+
+    return new Response(customStream, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        Connection: 'keep-alive',
+      },
+    })
   } catch (error) {
     console.error('Chat error:', error)
     return new Response(JSON.stringify({ error: 'Failed to process chat message' }), {
