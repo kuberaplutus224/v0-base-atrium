@@ -1,6 +1,12 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
 import DashboardToggle from './dashboard-toggle'
 
 export default function Header() {
+  const pathname = usePathname()
+  const currentDashboard = pathname === '/atrium' ? 'atrium' : 'base'
+
   return (
     <header className="border-b border-border bg-card">
       <div className="mx-auto max-w-6xl px-4 py-8 md:px-8">
@@ -17,7 +23,7 @@ export default function Header() {
             </h1>
           </div>
           <div className="flex items-center gap-4">
-            <DashboardToggle currentDashboard="base" />
+            <DashboardToggle currentDashboard={currentDashboard} />
             <button className="text-sm text-muted-foreground transition-colors hover:text-foreground">
               Settings
             </button>
