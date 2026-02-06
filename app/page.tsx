@@ -29,11 +29,11 @@ export default function Page() {
     <>
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
-      {/* Main Content Wrapper */}
-      <div className="md:ml-80 flex flex-col h-screen">
-        {/* Header with Dashboard Toggle */}
-        <Header />
+      {/* Header spans full width */}
+      <Header />
 
+      {/* Main Content Wrapper */}
+      <div className="md:ml-80 flex flex-col h-[calc(100vh-73px)]">
         {/* Ticker Row */}
         <TickerRow stats={stats} onStatClick={handleStatClick} />
 
