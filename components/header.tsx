@@ -1,3 +1,5 @@
+import DashboardToggle from './dashboard-toggle'
+
 export default function Header() {
   return (
     <header className="border-b border-border bg-card">
@@ -15,6 +17,7 @@ export default function Header() {
             </h1>
           </div>
           <div className="flex items-center gap-4">
+            <DashboardToggle currentDashboard="base" />
             <button className="text-sm text-muted-foreground transition-colors hover:text-foreground">
               Settings
             </button>
