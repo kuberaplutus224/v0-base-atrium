@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+import Sidebar from '@/components/sidebar'
 import Header from '@/components/header'
 import PredictiveRevenueForecast from '@/components/predictive-revenue-forecast'
 import AnomalyDetectionAlerts from '@/components/anomaly-detection-alerts'
@@ -12,8 +14,13 @@ import ExecutiveSummary from '@/components/executive-summary'
 import OpportunityDetection from '@/components/opportunity-detection'
 
 export default function AtriumPage() {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
   return (
     <>
+      {/* Sidebar hidden on Atrium - passed false for open state */}
+      <Sidebar isOpen={false} setIsOpen={setSidebarOpen} />
+
       {/* Full Width Layout - No Sidebar */}
       <div className="flex flex-col h-screen bg-background">
         {/* Shared Header with Toggle */}
