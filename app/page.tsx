@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Sidebar from '@/components/sidebar'
+import Header from '@/components/header'
 import TickerRow from '@/components/ticker-row'
 import ChatInterface from '@/components/chat-interface'
 import IntelligencePanel from '@/components/intelligence-panel'
@@ -30,6 +31,9 @@ export default function Page() {
 
       {/* Main Content Wrapper */}
       <div className="md:ml-80 flex flex-col h-screen">
+        {/* Header with Dashboard Toggle */}
+        <Header />
+
         {/* Ticker Row */}
         <TickerRow stats={stats} onStatClick={handleStatClick} />
 
