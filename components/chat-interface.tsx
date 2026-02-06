@@ -7,6 +7,7 @@ import { useChat } from '@ai-sdk/react'
 import { DefaultChatTransport } from 'ai'
 import { Send, Copy, Share2 } from 'lucide-react'
 import MorningBriefing from './morning-briefing'
+import ScenarioSimulator from './scenario-simulator'
 
 interface Message {
   id: string
@@ -154,6 +155,9 @@ export default function ChatInterface() {
           {localMessages.length === 0 ? (
             <div className="flex flex-1 flex-col items-center justify-center gap-4">
               <MorningBriefing />
+              <div className="w-full max-w-sm">
+                <ScenarioSimulator />
+              </div>
               <p className="text-center text-muted-foreground">
                 Start a conversation with your AI business assistant
               </p>
@@ -163,75 +167,81 @@ export default function ChatInterface() {
               <div className="mb-2">
                 <MorningBriefing />
               </div>
-              {localMessages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`animate-fadeIn flex ${
-                    message.role === 'user' ? 'justify-end' : 'justify-start'
-                  }`}
-                >
+              {localMessages.map((message, index) => (
+                <React.Fragment key={message.id}>
                   <div
-                    className={`max-w-xs ${
-                      message.role === 'user'
-                        ? 'rounded-3xl rounded-br-none bg-secondary text-secondary-foreground'
-                        : 'rounded-lg'
+                    className={`animate-fadeIn flex ${
+                      message.role === 'user' ? 'justify-end' : 'justify-start'
                     }`}
                   >
-                    {message.role === 'assistant' ? (
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 px-4 pt-3">
-                          <div className="h-6 w-6 rounded-full bg-accent" />
-                          <span className="text-xs font-semibold text-muted-foreground">
-                            SellerGPT
-                          </span>
-                        </div>
-                        <div className="px-4 pb-3 text-sm leading-relaxed">
-                          {parseMessageWithChips(message.content).map((part, idx) => {
-                            if (typeof part === 'string') {
-                              return <span key={idx}>{part}</span>
-                            }
-                            return (
-                              <button
-                                key={idx}
-                                className="mx-1 inline-block rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent transition-colors hover:bg-accent/20"
-                              >
-                                {part.text}
-                              </button>
-                            )
-                          })}
-                        </div>
-                        <div className="flex items-center justify-between border-t border-border px-4 py-2">
-                          <span className="text-xs text-muted-foreground">
-                            Generated from Square Sales Data // 99% Accuracy
-                          </span>
-                          <div className="flex gap-1">
-                            <button
-                              onClick={() => handleCopyToClipboard(message.content, message.id)}
-                              className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-secondary/30"
-                              title="Copy to clipboard"
-                            >
-                              <Copy className="h-3.5 w-3.5" />
-                            </button>
-                            <button
-                              onClick={() => handleShareToTeam(message.content)}
-                              className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-secondary/30"
-                              title="Share to team"
-                            >
-                              <Share2 className="h-3.5 w-3.5" />
-                            </button>
+                    <div
+                      className={`max-w-xs ${
+                        message.role === 'user'
+                          ? 'rounded-3xl rounded-br-none bg-secondary text-secondary-foreground'
+                          : 'rounded-lg'
+                      }`}
+                    >
+                      {message.role === 'assistant' ? (
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2 px-4 pt-3">
+                            <div className="h-6 w-6 rounded-full bg-accent" />
+                            <span className="text-xs font-semibold text-muted-foreground">
+                              SellerGPT
+                            </span>
                           </div>
+                          <div className="px-4 pb-3 text-sm leading-relaxed">
+                            {parseMessageWithChips(message.content).map((part, idx) => {
+                              if (typeof part === 'string') {
+                                return <span key={idx}>{part}</span>
+                              }
+                              return (
+                                <button
+                                  key={idx}
+                                  className="mx-1 inline-block rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent transition-colors hover:bg-accent/20"
+                                >
+                                  {part.text}
+                                </button>
+                              )
+                            })}
+                          </div>
+                          <div className="flex items-center justify-between border-t border-border px-4 py-2">
+                            <span className="text-xs text-muted-foreground">
+                              Generated from Square Sales Data // 99% Accuracy
+                            </span>
+                            <div className="flex gap-1">
+                              <button
+                                onClick={() => handleCopyToClipboard(message.content, message.id)}
+                                className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-secondary/30"
+                                title="Copy to clipboard"
+                              >
+                                <Copy className="h-3.5 w-3.5" />
+                              </button>
+                              <button
+                                onClick={() => handleShareToTeam(message.content)}
+                                className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-secondary/30"
+                                title="Share to team"
+                              >
+                                <Share2 className="h-3.5 w-3.5" />
+                              </button>
+                            </div>
+                          </div>
+                          {copiedId === message.id && (
+                            <div className="px-4 pb-2 text-xs text-accent">✓ Copied</div>
+                          )}
                         </div>
-                        {copiedId === message.id && (
-                          <div className="px-4 pb-2 text-xs text-accent">✓ Copied</div>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="px-4 py-3">
-                        <p className="break-words text-sm leading-relaxed">{message.content}</p>
-                      </div>
-                    )}
+                      ) : (
+                        <div className="px-4 py-3">
+                          <p className="break-words text-sm leading-relaxed">{message.content}</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                  {message.role === 'assistant' && index === localMessages.length - 1 && (
+                    <div className="mt-2 w-full max-w-sm">
+                      <ScenarioSimulator />
+                    </div>
+                  )}
+                </React.Fragment>
               ))}
               {isLoading && (
                 <div className="flex animate-fadeIn justify-start">
