@@ -1,6 +1,7 @@
 'use client'
 
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import VibeCheck from './vibe-check'
 
 interface StatsGridProps {
   stats: {
@@ -125,15 +126,9 @@ export default function StatsGrid({ stats }: StatsGridProps) {
           </ResponsiveContainer>
         </div>
 
-        {/* Conversion Rate Sparkline */}
-        <div className="flex h-40 items-end justify-around gap-1 py-8">
-          {[40, 65, 55, 70, 50, 80, 60].map((height, i) => (
-            <div
-              key={i}
-              className="w-2 rounded-t bg-gradient-to-t from-accent to-accent/50 transition-all hover:from-accent/90"
-              style={{ height: `${height}%` }}
-            />
-          ))}
+        {/* Vibe Check - Customer Sentiment */}
+        <div className="h-40 flex flex-col justify-center">
+          <VibeCheck sentiment={88} keywords={['Friendly Staff', 'Fast WiFi', 'Expensive Pastries']} />
         </div>
       </div>
     </div>
