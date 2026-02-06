@@ -51,35 +51,34 @@ function getUrgencyColor(urgency: 'critical' | 'high' | 'medium') {
 
 export default function OpportunityDetection() {
   return (
-    <div className="space-y-3">
+    <div className="w-full space-y-3">
       {opportunities.map((opp) => (
         <div
           key={opp.id}
-          className={`rounded-lg border p-4 ${getUrgencyColor(opp.urgency)}`}
+          className={`border-b border-secondary/40 pb-3 last:border-b-0 ${getUrgencyColor(opp.urgency)}`}
         >
           <div className="flex gap-3">
-            <div className="flex-shrink-0 mt-1">
-              <Zap className="h-5 w-5 text-accent" />
+            <div className="flex-shrink-0 mt-0.5">
+              {opp.urgency === 'critical' ? (
+                <Zap className="h-5 w-5 text-destructive" />
+              ) : (
+                <TrendingUp className="h-5 w-5 text-accent" />
+              )}
             </div>
-            <div className="flex-1">
-              <div className="flex items-start justify-between gap-2 mb-2">
-                <h4 className="font-medium text-foreground">{opp.title}</h4>
-                <span className="inline-block rounded-full px-2.5 py-1 bg-accent/20 text-xs font-semibold text-accent whitespace-nowrap">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <h4 className="font-medium text-foreground text-sm">{opp.title}</h4>
+                  <p className="text-xs text-muted-foreground mt-1 break-words">{opp.description}</p>
+                </div>
+                <p className={`text-sm font-semibold flex-shrink-0 ${opp.urgency === 'critical' ? 'text-destructive' : 'text-accent'}`}>
                   {opp.potentialImpact}
-                </span>
+                </p>
               </div>
-              <p className="text-xs text-muted-foreground mb-3">{opp.description}</p>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-muted-foreground">
-                  Effort: <span className="font-medium capitalize">{opp.effort}</span>
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  Urgency: <span className="font-medium capitalize">{opp.urgency}</span>
-                </span>
+              <div className="flex gap-2 mt-2 text-xs">
+                <span className="text-muted-foreground">Effort: {opp.effort}</span>
+                <span className="text-muted-foreground">Urgency: {opp.urgency}</span>
               </div>
-              <button className="w-full mt-2 rounded-md bg-accent/10 px-3 py-2 text-xs font-medium text-accent hover:bg-accent/20 transition-colors">
-                Review & Execute
-              </button>
             </div>
           </div>
         </div>

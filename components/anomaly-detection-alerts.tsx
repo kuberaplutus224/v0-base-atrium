@@ -37,11 +37,11 @@ const alerts: Alert[] = [
 function getSeverityColor(severity: 'critical' | 'warning' | 'info') {
   switch (severity) {
     case 'critical':
-      return 'bg-destructive/10 border-destructive/30'
+      return 'border-destructive/30'
     case 'warning':
-      return 'bg-accent/10 border-accent/30'
+      return 'border-accent/30'
     case 'info':
-      return 'bg-secondary/40 border-secondary/50'
+      return 'border-secondary/50'
   }
 }
 
@@ -58,11 +58,11 @@ function getSeverityTextColor(severity: 'critical' | 'warning' | 'info') {
 
 export default function AnomalyDetectionAlerts() {
   return (
-    <div className="space-y-3">
+    <div className="w-full space-y-3">
       {alerts.map((alert) => (
         <div
           key={alert.id}
-          className={`rounded-lg border p-4 ${getSeverityColor(alert.severity)}`}
+          className={`border-b border-secondary/40 pb-3 last:border-b-0 ${getSeverityColor(alert.severity)}`}
         >
           <div className="flex gap-3">
             <div className="flex-shrink-0 mt-0.5">
@@ -70,15 +70,15 @@ export default function AnomalyDetectionAlerts() {
               {alert.icon === 'trend' && <TrendingDown className={`h-5 w-5 ${getSeverityTextColor(alert.severity)}`} />}
               {alert.icon === 'zap' && <Zap className={`h-5 w-5 ${getSeverityTextColor(alert.severity)}`} />}
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <h4 className={`font-medium ${getSeverityTextColor(alert.severity)}`}>
                 {alert.title}
               </h4>
-              <p className="text-xs text-muted-foreground mt-1">
+              <p className="text-xs text-muted-foreground mt-1 break-words">
                 {alert.description}
               </p>
             </div>
-            <button className="text-xs text-muted-foreground hover:text-foreground transition-colors ml-2">
+            <button className="text-xs text-muted-foreground hover:text-foreground transition-colors flex-shrink-0">
               Dismiss
             </button>
           </div>

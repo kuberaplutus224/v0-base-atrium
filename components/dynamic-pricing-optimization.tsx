@@ -36,18 +36,13 @@ const recommendations: PricingRec[] = [
 
 export default function DynamicPricingOptimization() {
   return (
-    <div className="rounded-lg border border-border bg-card p-6">
-      <div className="mb-6">
-        <h3 className="font-serif text-lg font-semibold text-foreground">Pricing Optimization</h3>
-        <p className="text-xs text-muted-foreground mt-1">AI-driven price recommendations</p>
-      </div>
-
+    <div className="w-full">
       <div className="space-y-3">
         {recommendations.map((rec, idx) => (
-          <div key={idx} className="rounded-lg border border-border/50 p-4 bg-secondary/20">
+          <div key={idx} className="border-b border-secondary/40 pb-3 last:border-b-0">
             <div className="flex items-start justify-between mb-2">
               <div>
-                <h4 className="font-medium text-foreground">{rec.product}</h4>
+                <h4 className="font-medium text-foreground text-sm">{rec.product}</h4>
                 <p className="text-xs text-muted-foreground mt-1">{rec.reason}</p>
               </div>
               <div className="text-right">
@@ -76,19 +71,13 @@ export default function DynamicPricingOptimization() {
                 </div>
               </div>
             </div>
-
-            <button className="w-full mt-3 rounded-md bg-accent/10 px-3 py-2 text-xs font-medium text-accent hover:bg-accent/20 transition-colors">
-              Apply Change
-            </button>
           </div>
         ))}
       </div>
 
-      <div className="mt-6 pt-4 border-t border-border">
-        <p className="text-xs text-muted-foreground">
-          <strong>Projected Impact:</strong> These optimizations could generate +$8,240 additional monthly revenue.
-        </p>
-      </div>
+      <p className="text-xs text-muted-foreground mt-4">
+        <strong>Projected Impact:</strong> These optimizations could generate +$8,240 additional monthly revenue.
+      </p>
     </div>
   )
 }

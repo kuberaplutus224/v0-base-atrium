@@ -21,14 +21,14 @@ const weekData = [
 
 export default function ExecutiveSummary() {
   return (
-    <div className="space-y-6">
+    <div className="w-full space-y-6">
       {/* Key Metrics Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         {summaryData.map((item, idx) => (
-          <div key={idx} className="rounded-lg border border-border bg-card p-4">
-            <p className="text-xs text-muted-foreground mb-1">{item.metric}</p>
+          <div key={idx} className="pb-3 border-b border-secondary/40">
+            <p className="text-xs text-muted-foreground mb-2">{item.metric}</p>
             <div className="flex items-end justify-between">
-              <p className="font-serif text-xl font-semibold text-foreground">{item.value}</p>
+              <p className="font-serif text-lg font-semibold text-foreground">{item.value}</p>
               <p className={`text-xs font-semibold ${item.status === 'up' ? 'text-accent' : 'text-destructive'}`}>
                 {item.change}
               </p>
@@ -38,37 +38,30 @@ export default function ExecutiveSummary() {
       </div>
 
       {/* Daily Revenue Chart */}
-      <div className="rounded-lg border border-border bg-card p-6">
+      <div>
         <h3 className="font-serif text-sm font-semibold text-foreground mb-4">This Week Revenue</h3>
-        <ResponsiveContainer width="100%" height={200}>
-          <BarChart data={weekData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-            <XAxis dataKey="day" stroke="hsl(var(--muted-foreground))" />
-            <YAxis stroke="hsl(var(--muted-foreground))" />
-            <Tooltip 
-              contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))' }}
-            />
-            <Bar dataKey="revenue" fill="#D1633C" radius={[4, 4, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
+        <div className="w-full h-40 -mx-4 px-4">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={weekData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+              <XAxis dataKey="day" stroke="hsl(var(--muted-foreground))" style={{ fontSize: '11px' }} />
+              <YAxis stroke="hsl(var(--muted-foreground))" style={{ fontSize: '11px' }} />
+              <Tooltip 
+                contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))' }}
+              />
+              <Bar dataKey="revenue" fill="#D1633C" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
 
       {/* Key Insights */}
-      <div className="rounded-lg border border-border bg-card p-6">
-        <h3 className="font-serif text-sm font-semibold text-foreground mb-4">System Insights</h3>
-        <ul className="space-y-2">
-          <li className="text-xs text-muted-foreground flex gap-2">
-            <span className="text-accent">▪</span>
-            Revenue trending +12.3% WoW. Weekend spike suggests seasonal demand increase.
-          </li>
-          <li className="text-xs text-muted-foreground flex gap-2">
-            <span className="text-accent">▪</span>
-            3 high-risk customers detected. Automated retention campaigns activated.
-          </li>
-          <li className="text-xs text-muted-foreground flex gap-2">
-            <span className="text-accent">▪</span>
-            Pricing optimization could add $8.2K monthly revenue. Review recommendations.
-          </li>
+      <div>
+        <h3 className="font-serif text-sm font-semibold text-foreground mb-3">System Insights</h3>
+        <ul className="space-y-2 text-xs text-muted-foreground">
+          <li className="flex gap-2">• Friday is your peak revenue day. Consider flash sales on other days to smooth the curve.</li>
+          <li className="flex gap-2">• Health Score is holding strong at 8.4/10. Customer satisfaction remains consistent.</li>
+          <li className="flex gap-2">• Avg order declining 2.1%. May indicate price sensitivity or product mix shift.</li>
         </ul>
       </div>
     </div>

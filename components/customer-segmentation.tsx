@@ -36,22 +36,17 @@ const segments: Segment[] = [
 
 export default function CustomerSegmentation() {
   return (
-    <div className="rounded-lg border border-border bg-card p-6">
-      <div className="mb-6">
-        <h3 className="font-serif text-lg font-semibold text-foreground">Customer Segments</h3>
-        <p className="text-xs text-muted-foreground mt-1">AI-identified customer groups with unique strategies</p>
-      </div>
-
+    <div className="w-full">
       <div className="space-y-3">
         {segments.map((segment, idx) => (
-          <div key={idx} className="rounded-lg border border-border/50 p-4 bg-secondary/20">
+          <div key={idx} className="border-b border-secondary/40 pb-3 last:border-b-0">
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center gap-2">
                 <div className="rounded-full bg-accent/20 p-2">
                   <Users className="h-4 w-4 text-accent" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-foreground">{segment.name}</h4>
+                  <h4 className="font-medium text-foreground text-sm">{segment.name}</h4>
                   <p className="text-xs text-muted-foreground">{segment.count} customers</p>
                 </div>
               </div>
@@ -73,18 +68,8 @@ export default function CustomerSegmentation() {
                 </span>
               ))}
             </div>
-
-            <button className="w-full mt-3 rounded-md bg-accent/10 px-3 py-2 text-xs font-medium text-accent hover:bg-accent/20 transition-colors">
-              View Strategy
-            </button>
           </div>
         ))}
-      </div>
-
-      <div className="mt-6 pt-4 border-t border-border">
-        <p className="text-xs text-muted-foreground">
-          <strong>Recommendation:</strong> Focus retention efforts on Enterprise segment (18% growth), scale marketing to Mid-Market (34% growth).
-        </p>
       </div>
     </div>
   )

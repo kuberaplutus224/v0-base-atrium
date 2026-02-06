@@ -46,18 +46,13 @@ function getRiskColor(score: number) {
 
 export default function CustomerChurnRiskScoring() {
   return (
-    <div className="rounded-lg border border-border bg-card p-6">
-      <div className="mb-6">
-        <h3 className="font-serif text-lg font-semibold text-foreground">Churn Risk Analysis</h3>
-        <p className="text-xs text-muted-foreground mt-1">{atRiskCustomers.length} high-risk accounts detected</p>
-      </div>
-
+    <div className="w-full">
       <div className="space-y-3">
         {atRiskCustomers.map((customer) => (
-          <div key={customer.customerId} className="rounded-lg border border-border/50 p-4 bg-secondary/20">
+          <div key={customer.customerId} className="border-b border-secondary/40 pb-3 last:border-b-0">
             <div className="flex items-start justify-between mb-2">
               <div>
-                <h4 className="font-medium text-foreground">{customer.name}</h4>
+                <h4 className="font-medium text-foreground text-sm">{customer.name}</h4>
                 <p className="text-xs text-muted-foreground mt-1">{customer.riskReason}</p>
               </div>
               <div className={`rounded-full px-3 py-1 ${getRiskColor(customer.riskScore)}`}>
@@ -65,7 +60,7 @@ export default function CustomerChurnRiskScoring() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 mt-3 pt-3 border-t border-border/30">
+            <div className="grid grid-cols-2 gap-3 mt-3">
               <div>
                 <p className="text-xs text-muted-foreground">LTV</p>
                 <p className="font-serif font-semibold text-foreground">${customer.ltv.toLocaleString()}</p>
@@ -75,18 +70,8 @@ export default function CustomerChurnRiskScoring() {
                 <p className="font-serif font-semibold text-foreground">${customer.monthlySpend}</p>
               </div>
             </div>
-
-            <button className="w-full mt-3 rounded-md bg-accent/10 px-3 py-2 text-xs font-medium text-accent hover:bg-accent/20 transition-colors">
-              View Retention Plan
-            </button>
           </div>
         ))}
-      </div>
-
-      <div className="mt-6 pt-4 border-t border-border">
-        <p className="text-xs text-muted-foreground">
-          <strong>At Risk Revenue:</strong> ${atRiskCustomers.reduce((sum, c) => sum + c.ltv, 0).toLocaleString()} LTV at risk
-        </p>
       </div>
     </div>
   )

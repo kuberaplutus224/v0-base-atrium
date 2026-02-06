@@ -14,49 +14,44 @@ const forecastData = [
 
 export default function PredictiveRevenueForecast() {
   return (
-    <div className="rounded-lg border border-border bg-card p-6">
-      <div className="mb-6">
-        <h3 className="font-serif text-lg font-semibold text-foreground">Revenue Forecast</h3>
-        <p className="text-xs text-muted-foreground mt-1">7-day AI prediction with confidence intervals</p>
-      </div>
-
+    <div className="w-full">
       <div className="mb-6">
         <div className="grid grid-cols-3 gap-4">
-          <div className="rounded-lg bg-secondary/40 p-4">
-            <p className="text-xs text-muted-foreground mb-1">This Week</p>
+          <div>
+            <p className="text-xs text-muted-foreground mb-2">This Week</p>
             <p className="font-serif text-lg font-semibold text-foreground">$102,420</p>
           </div>
-          <div className="rounded-lg bg-secondary/40 p-4">
-            <p className="text-xs text-muted-foreground mb-1">Next Week (Forecast)</p>
+          <div>
+            <p className="text-xs text-muted-foreground mb-2">Next Week (Forecast)</p>
             <p className="font-serif text-lg font-semibold text-accent">$101,300</p>
           </div>
-          <div className="rounded-lg bg-secondary/40 p-4">
-            <p className="text-xs text-muted-foreground mb-1">Change</p>
+          <div>
+            <p className="text-xs text-muted-foreground mb-2">Change</p>
             <p className="font-serif text-lg font-semibold text-destructive">-1.1%</p>
           </div>
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={forecastData}>
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-          <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" />
-          <YAxis stroke="hsl(var(--muted-foreground))" />
-          <Tooltip 
-            contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))' }}
-          />
-          <Legend />
-          <Line type="monotone" dataKey="current" stroke="#D1633C" strokeWidth={2} dot={{ r: 4 }} name="Current" />
-          <Line type="monotone" dataKey="forecast" stroke="#8B7355" strokeWidth={2} strokeDasharray="5 5" name="Forecast" />
-          <Line type="monotone" dataKey="upper" stroke="hsl(var(--muted-foreground))" strokeWidth={1} strokeDasharray="5 5" name="Upper Band" />
-        </LineChart>
-      </ResponsiveContainer>
-
-      <div className="mt-6 border-t border-border pt-4">
-        <p className="text-xs text-muted-foreground">
-          <strong>Insight:</strong> Revenue expected to dip 1.1% next week. Consider flash sales on Thursday-Friday to offset seasonal decline.
-        </p>
+      <div className="w-full h-64 overflow-hidden -mx-4 px-4">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={forecastData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+            <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" style={{ fontSize: '11px' }} />
+            <YAxis stroke="hsl(var(--muted-foreground))" style={{ fontSize: '11px' }} />
+            <Tooltip 
+              contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))' }}
+            />
+            <Legend />
+            <Line type="monotone" dataKey="current" stroke="#D1633C" strokeWidth={2} dot={false} name="Current" />
+            <Line type="monotone" dataKey="forecast" stroke="#8B7355" strokeWidth={2} strokeDasharray="5 5" name="Forecast" />
+            <Line type="monotone" dataKey="upper" stroke="hsl(var(--muted-foreground))" strokeWidth={1} strokeDasharray="5 5" name="Upper Band" />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
+
+      <p className="text-xs text-muted-foreground mt-4">
+        <strong>Insight:</strong> Revenue expected to dip 1.1% next week. Consider flash sales on Thursday-Friday to offset seasonal decline.
+      </p>
     </div>
   )
 }
