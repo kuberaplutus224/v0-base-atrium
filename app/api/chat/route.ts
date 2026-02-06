@@ -45,22 +45,26 @@ export async function POST(req: Request) {
       maxOutputTokens: 1024,
     })
 
-    console.log('[v0] API: streamText result created')
+    console.log('[v0] API: streamText result created, starting stream...')
 
     // Create a simple SSE response
     const encoder = new TextEncoder()
     let totalText = ''
+    let chunkCount = 0
 
     const readable = new ReadableStream({
       async start(controller) {
         try {
+          console.log('[v0] API: Starting textStream iteration')
           for await (const chunk of result.textStream) {
+            chunkCount++
             totalText += chunk
-            console.log('[v0] API: Text chunk:', chunk)
-            // Send each chunk as SSE data
-            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: chunk })}\n\n`))
+            console.log('[v0] API: Chunk', chunkCount, ':', JSON.stringify(chunk))
+            const sseMessage = `data: ${JSON.stringify({ text: chunk })}\n\n`
+            console.log('[v0] API: Sending SSE:', JSON.stringify(sseMessage))
+            controller.enqueue(encoder.encode(sseMessage))
           }
-          console.log('[v0] API: Stream complete, total text:', totalText.length, 'chars')
+          console.log('[v0] API: Stream iteration complete, total chunks:', chunkCount, 'total chars:', totalText.length)
           controller.enqueue(encoder.encode('data: [DONE]\n\n'))
           controller.close()
         } catch (error) {
