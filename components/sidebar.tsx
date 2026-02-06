@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Menu } from 'lucide-react'
 import TopPerformingStrategies from './top-performing-strategies'
+import AnalysisDetailModal from './analysis-detail-modal'
 
 interface SidebarProps {
   isOpen: boolean
@@ -19,7 +20,14 @@ const historyItems = [
 
 export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const [tokensUsed] = useState(1240)
+  const [analysisModalOpen, setAnalysisModalOpen] = useState(false)
+  const [selectedAnalysis, setSelectedAnalysis] = useState<string | null>(null)
   const maxTokens = 5000
+
+  const handleAnalysisClick = (item: string) => {
+    setSelectedAnalysis(item)
+    setAnalysisModalOpen(true)
+  }
 
   return (
     <>
@@ -55,6 +63,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                 {historyItems.map((item) => (
                   <button
                     key={item}
+                    onClick={() => handleAnalysisClick(item)}
                     className="w-full text-left px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/40 transition-colors"
                   >
                     {item}
@@ -92,17 +101,16 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                 style={{ width: `${(tokensUsed / maxTokens) * 100}%` }}
               />
             </div>
-            <p className="text-xs text-muted-foreground mt-2">
-              {maxTokens - tokensUsed} tokens remaining
-            </p>
           </div>
-
-          {/* Account Button */}
-          <button className="w-full mt-4 px-3 py-2 rounded-lg bg-secondary text-foreground text-sm font-medium transition-colors hover:bg-secondary/80">
-            Account Settings
-          </button>
         </div>
       </aside>
+
+      {/* Analysis Detail Modal */}
+      <AnalysisDetailModal
+        isOpen={analysisModalOpen}
+        onClose={() => setAnalysisModalOpen(false)}
+        analysisTitle={selectedAnalysis}
+      />
 
       {/* Mobile Overlay */}
       {isOpen && (
