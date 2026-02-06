@@ -47,7 +47,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       >
         {/* History Section */}
         <div className="flex-1 overflow-y-auto border-b border-border">
-          <div className="p-6 space-y-8">
+          <div className="px-6 pt-0 pb-6 space-y-8">
             {/* Analysis History */}
             <div>
               <h3 className="font-serif text-xs font-semibold text-foreground uppercase tracking-wide mb-4">
