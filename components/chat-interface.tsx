@@ -174,7 +174,7 @@ export default function ChatInterface() {
         {localMessages.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-6 py-12">
             <p className="text-center text-muted-foreground">
-              Start a conversation with your AI business assistant
+              Good morning. This is Base—your business intelligence layer. I've processed your latest Square ledger.
             </p>
           </div>
         ) : (
@@ -198,7 +198,7 @@ export default function ChatInterface() {
                         <div className="flex items-center gap-2 px-4 pt-3">
                           <div className="h-6 w-6 rounded-full bg-accent" />
                           <span className="text-xs font-semibold text-muted-foreground">
-                            SellerGPT
+                            Base Intelligence
                           </span>
                         </div>
                         <div className="px-4 pb-3 text-sm leading-relaxed">
@@ -218,7 +218,7 @@ export default function ChatInterface() {
                         </div>
                         <div className="flex items-center justify-between border-t border-border px-4 py-2">
                           <span className="text-xs text-muted-foreground">
-                            Generated from Square Sales Data // 99% Accuracy
+                            Base System Logic // 99% Accuracy
                           </span>
                           <div className="flex gap-1">
                             <button

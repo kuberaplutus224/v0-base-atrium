@@ -16,8 +16,8 @@ export default function MorningBriefing() {
           <Coffee className="h-5 w-5 text-accent" />
         </div>
         <div className="flex-1">
-          <h3 className="font-serif text-sm font-semibold text-foreground">Daily Brief</h3>
-          <p className="mb-3 text-xs text-muted-foreground">Yesterday's performance snapshot</p>
+          <h3 className="font-serif text-sm font-semibold text-foreground">The Base Report</h3>
+          <p className="mb-3 text-xs text-muted-foreground">Yesterday's ledger analysis</p>
           <ul className="space-y-2">
             {briefPoints.map((point, idx) => (
               <li key={idx} className="flex items-start gap-2">

@@ -26,12 +26,18 @@ export default function Page() {
 
       {/* Main Content Area */}
       <main className="flex-1 overflow-hidden flex bg-background">
-        {/* Center Chat Area - Fixed width container with 800px chat area */}
+        {/* Center Chat Area - 850px max width */}
         <div className="flex-1 flex flex-col overflow-hidden border-r border-border">
           <div className="flex-1 overflow-y-auto">
-            <div className="mx-auto w-full max-w-3xl px-6 py-8 md:px-8">
+            <div className="mx-auto w-full" style={{ maxWidth: '850px' }} className="px-6 py-8 md:px-8">
               <ChatInterface />
             </div>
+          </div>
+          {/* Base Sync Status Footer */}
+          <div className="border-t border-border bg-background/50 px-6 py-3 text-center">
+            <p className="text-xs text-muted-foreground">
+              Base is synced: 01-05-2026_ledger.csv
+            </p>
           </div>
         </div>
 

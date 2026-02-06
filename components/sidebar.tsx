@@ -38,8 +38,8 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       >
         {/* Logo Section */}
         <div className="border-b border-border px-6 py-8">
-          <h2 className="font-serif text-2xl font-semibold text-foreground">SellerGPT</h2>
-          <p className="text-xs text-muted-foreground mt-1">Business Intelligence</p>
+          <h2 className="font-serif text-2xl font-semibold text-foreground" style={{ letterSpacing: '0.05em' }}>Base</h2>
+          <p className="text-xs text-muted-foreground mt-1">System Foundation</p>
         </div>
 
         {/* History Section */}
@@ -64,7 +64,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         {/* Account & Usage Section */}
         <div className="border-t border-border p-6">
           <h3 className="font-serif text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
-            AI Token Usage
+            System Logic Usage
           </h3>
 
           {/* Progress Bar */}
