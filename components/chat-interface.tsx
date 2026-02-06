@@ -1,11 +1,12 @@
 'use client'
 
-import React from "react"
+import React from 'react'
 
 import { useState, useRef, useEffect } from 'react'
 import { useChat } from '@ai-sdk/react'
 import { DefaultChatTransport } from 'ai'
-import { Send } from 'lucide-react'
+import { Send, Copy, Share2 } from 'lucide-react'
+import MorningBriefing from './morning-briefing'
 
 interface Message {
   id: string
@@ -13,11 +14,14 @@ interface Message {
   content: string
 }
 
+const interactiveKeywords = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'product', 'sales', 'revenue', 'customers']
+
 export default function ChatInterface() {
   const [localMessages, setLocalMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [copiedId, setCopiedId] = useState<string | null>(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -26,6 +30,48 @@ export default function ChatInterface() {
   useEffect(() => {
     scrollToBottom()
   }, [localMessages])
+
+  const handleCopyToClipboard = (content: string, id: string) => {
+    navigator.clipboard.writeText(content)
+    setCopiedId(id)
+    setTimeout(() => setCopiedId(null), 2000)
+  }
+
+  const handleShareToTeam = (content: string) => {
+    const text = `Check this insight from SellerGPT:\n\n"${content}"`
+    if (navigator.share) {
+      navigator.share({
+        title: 'SellerGPT Insight',
+        text: text,
+      })
+    } else {
+      alert('Share feature not available on this device')
+    }
+  }
+
+  const parseMessageWithChips = (content: string) => {
+    const parts: (string | { type: 'chip'; text: string })[] = []
+    let lastIndex = 0
+
+    interactiveKeywords.forEach((keyword) => {
+      const regex = new RegExp(`\\b${keyword}\\b`, 'gi')
+      let match
+
+      while ((match = regex.exec(content)) !== null) {
+        if (match.index > lastIndex) {
+          parts.push(content.substring(lastIndex, match.index))
+        }
+        parts.push({ type: 'chip', text: match[0] })
+        lastIndex = match.index + match[0].length
+      }
+    })
+
+    if (lastIndex < content.length) {
+      parts.push(content.substring(lastIndex))
+    }
+
+    return parts.length > 0 ? parts : [content]
+  }
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -106,13 +152,17 @@ export default function ChatInterface() {
         {/* Messages Container */}
         <div className="flex h-96 flex-col gap-4 overflow-y-auto rounded-lg bg-background p-4">
           {localMessages.length === 0 ? (
-            <div className="flex flex-1 items-center justify-center">
+            <div className="flex flex-1 flex-col items-center justify-center gap-4">
+              <MorningBriefing />
               <p className="text-center text-muted-foreground">
                 Start a conversation with your AI business assistant
               </p>
             </div>
           ) : (
             <>
+              <div className="mb-2">
+                <MorningBriefing />
+              </div>
               {localMessages.map((message) => (
                 <div
                   key={message.id}
@@ -121,32 +171,72 @@ export default function ChatInterface() {
                   }`}
                 >
                   <div
-                    className={`max-w-xs rounded-lg px-4 py-3 ${
+                    className={`max-w-xs ${
                       message.role === 'user'
-                        ? 'rounded-br-none bg-secondary text-secondary-foreground'
-                        : 'rounded-bl-none bg-background text-foreground'
+                        ? 'rounded-3xl rounded-br-none bg-secondary text-secondary-foreground'
+                        : 'rounded-lg'
                     }`}
                   >
-                    {message.role === 'assistant' && (
-                      <div className="mb-2 flex items-center gap-2">
-                        <div className="h-6 w-6 rounded-full bg-accent" />
-                        <span className="text-xs font-semibold text-muted-foreground">
-                          SellerGPT
-                        </span>
+                    {message.role === 'assistant' ? (
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 px-4 pt-3">
+                          <div className="h-6 w-6 rounded-full bg-accent" />
+                          <span className="text-xs font-semibold text-muted-foreground">
+                            SellerGPT
+                          </span>
+                        </div>
+                        <div className="px-4 pb-3 text-sm leading-relaxed">
+                          {parseMessageWithChips(message.content).map((part, idx) => {
+                            if (typeof part === 'string') {
+                              return <span key={idx}>{part}</span>
+                            }
+                            return (
+                              <button
+                                key={idx}
+                                className="mx-1 inline-block rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent transition-colors hover:bg-accent/20"
+                              >
+                                {part.text}
+                              </button>
+                            )
+                          })}
+                        </div>
+                        <div className="flex items-center justify-between border-t border-border px-4 py-2">
+                          <span className="text-xs text-muted-foreground">
+                            Generated from Square Sales Data // 99% Accuracy
+                          </span>
+                          <div className="flex gap-1">
+                            <button
+                              onClick={() => handleCopyToClipboard(message.content, message.id)}
+                              className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-secondary/30"
+                              title="Copy to clipboard"
+                            >
+                              <Copy className="h-3.5 w-3.5" />
+                            </button>
+                            <button
+                              onClick={() => handleShareToTeam(message.content)}
+                              className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-secondary/30"
+                              title="Share to team"
+                            >
+                              <Share2 className="h-3.5 w-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                        {copiedId === message.id && (
+                          <div className="px-4 pb-2 text-xs text-accent">✓ Copied</div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="px-4 py-3">
+                        <p className="break-words text-sm leading-relaxed">{message.content}</p>
                       </div>
                     )}
-                    <p className="break-words text-sm leading-relaxed">{message.content}</p>
                   </div>
                 </div>
               ))}
               {isLoading && (
                 <div className="flex animate-fadeIn justify-start">
-                  <div className="rounded-lg rounded-bl-none bg-background px-4 py-3">
-                    <div className="flex gap-1">
-                      <div className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground" />
-                      <div className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground delay-75" />
-                      <div className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground delay-150" />
-                    </div>
+                  <div className="rounded-lg px-4 py-3">
+                    <p className="shimmer-text text-sm font-medium">Reviewing your ledger...</p>
                   </div>
                 </div>
               )}
@@ -177,3 +267,4 @@ export default function ChatInterface() {
     </div>
   )
 }
+
