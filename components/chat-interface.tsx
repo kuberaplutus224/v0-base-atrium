@@ -88,6 +88,7 @@ export default function ChatInterface() {
     setIsLoading(true)
 
     try {
+      console.log('[v0] Chat: Sending message to API')
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -96,33 +97,61 @@ export default function ChatInterface() {
         }),
       })
 
-      if (!response.ok) throw new Error('Failed to get response')
+      console.log('[v0] Chat: Response status:', response.status)
+
+      if (!response.ok) {
+        const error = await response.json()
+        console.error('[v0] Chat: API error:', error)
+        throw new Error(`API error: ${error.error}`)
+      }
 
       const reader = response.body?.getReader()
       if (!reader) throw new Error('No response body')
 
       const decoder = new TextDecoder()
       let assistantContent = ''
+      let buffer = ''
 
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
 
-        const chunk = decoder.decode(value)
-        const lines = chunk.split('\n')
+        const chunk = decoder.decode(value, { stream: true })
+        buffer += chunk
+        console.log('[v0] Chat: Raw chunk:', chunk)
+
+        // Process complete lines only
+        const lines = buffer.split('\n')
+        buffer = lines.pop() || '' // Keep incomplete line in buffer
 
         for (const line of lines) {
-          if (line.startsWith('data:')) {
-            const data = line.slice(5).trim()
-            if (data === '[DONE]') continue
+          const trimmed = line.trim()
+          if (!trimmed) continue
+
+          // Handle streaming text format
+          if (trimmed.startsWith('data:')) {
+            const data = trimmed.slice(5).trim()
+            if (data === '[DONE]') {
+              console.log('[v0] Chat: Stream complete')
+              continue
+            }
             try {
-              const parsed = JSON.parse(data)
-              if (parsed.type === 'text-delta' && parsed.delta) {
-                assistantContent += parsed.delta
+              // toTextStreamResponse returns plain text chunks, not JSON
+              if (data) {
+                assistantContent += data
+                console.log('[v0] Chat: Added text:', data)
               }
-            } catch {}
+            } catch (e) {
+              console.log('[v0] Chat: Parse error:', e)
+            }
           }
         }
+      }
+
+      console.log('[v0] Chat: Final content:', assistantContent)
+
+      if (!assistantContent) {
+        throw new Error('Empty response from AI')
       }
 
       const assistantMessage: Message = {
@@ -133,7 +162,14 @@ export default function ChatInterface() {
 
       setLocalMessages((prev) => [...prev, assistantMessage])
     } catch (error) {
-      console.error('Chat error:', error)
+      console.error('[v0] Chat error:', error)
+      const errorMsg = error instanceof Error ? error.message : 'Failed to get response'
+      const errorMessage: Message = {
+        id: (Date.now() + 2).toString(),
+        role: 'assistant',
+        content: `Error: ${errorMsg}. Please check the browser console and API logs for details.`,
+      }
+      setLocalMessages((prev) => [...prev, errorMessage])
     } finally {
       setIsLoading(false)
     }
