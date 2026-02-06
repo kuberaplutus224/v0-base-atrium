@@ -61,7 +61,7 @@ export default function VibeCheck({ sentiment = 88, keywords = ['Friendly Staff'
 
           {/* Tooltip */}
           {showTooltip && (
-            <div className="absolute right-0 top-full mt-2 z-10 w-48 space-y-2 rounded-lg border border-border bg-card p-3 shadow-lg animate-fadeIn">
+            <div className="absolute right-0 top-full mt-2 z-10 w-48 space-y-2 rounded-lg subtle-border bg-card p-3 animate-fadeIn">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                 From Recent Reviews
               </p>

@@ -10,7 +10,7 @@ export default function ScenarioSimulator() {
   const customerRetention = 95 - priceIncrease * 8
 
   return (
-    <div className="space-y-4 rounded-lg border border-border bg-card p-6">
+    <div className="space-y-4 rounded-lg subtle-border bg-card p-6">
       {/* Title */}
       <div>
         <h3 className="font-serif text-sm font-semibold text-foreground">
@@ -44,7 +44,7 @@ export default function ScenarioSimulator() {
       </div>
 
       {/* Predicted Impact Box */}
-      <div className="space-y-3 rounded-lg border border-border bg-background p-4">
+      <div className="space-y-3 rounded-lg subtle-border bg-background p-4">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
           Predicted Impact
         </p>

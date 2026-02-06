@@ -10,7 +10,7 @@ export default function MorningBriefing() {
   ]
 
   return (
-    <div className="rounded-lg border border-border bg-secondary/50 p-6 shadow-sm">
+    <div className="rounded-lg subtle-border bg-secondary/50 p-6">
       <div className="flex items-start gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/20">
           <Coffee className="h-5 w-5 text-accent" />

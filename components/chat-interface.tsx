@@ -149,7 +149,7 @@ export default function ChatInterface() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-6 rounded-lg border border-border bg-card p-8 shadow-sm">
+      <div className="flex flex-col gap-6 rounded-lg border border-border bg-card p-8 ambient-glow">
         {/* Messages Container */}
         <div className="flex h-96 flex-col gap-4 overflow-y-auto rounded-lg bg-background p-4">
           {localMessages.length === 0 ? (
