@@ -1,5 +1,5 @@
 import React from "react"
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 
 import './globals.css'
@@ -11,10 +11,11 @@ export const metadata: Metadata = {
   title: 'Base',
   description: 'Business intelligence layer for commerce operators',
   generator: 'v0.app',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-  },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({
