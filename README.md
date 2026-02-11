@@ -17,21 +17,35 @@ Atrium BI serves as the central nervous system for business operations, featurin
 
 ```mermaid
 graph TD
-    subgraph Client
-        UI["React 19 Frontend (Atrium BI)"]
-        State["URL Params (Global Date Range)"]
+    subgraph Client["Client Layer (React 19)"]
+        UI["Atrium UI"]
+        State["Global Date Context"]
     end
 
-    subgraph Server["Next.js 16 (Node.js)"]
-        API["API Routes (Proxy & Business Logic)"]
+    subgraph Server["Application Server (Next.js 16)"]
+        API["API Layer (Supabase Proxy)"]
         SDK["Vercel AI SDK"]
     end
 
-    subgraph Intelligence["AI Models (Anthropic)"]
-        Claude["Claude Opus 4.5"]
+    subgraph Intelligence["Intelligence Engines (Anthropic)"]
+        subgraph Predictive["Predictive Analytics"]
+            Revenue["Revenue Forecast"]
+            Churn["Churn Risk Scoring"]
+            Inventory["Inventory Logic"]
+        end
+        subgraph Behavioral["Behavioral Analysis"]
+            Vibe["Sentiment / Vibe Check"]
+            Segments["Dynamic Segmentation"]
+            Pricing["Pricing Optimization"]
+        end
+        subgraph Synthesis["Narrative Synthesis"]
+            Briefing["Morning Briefing"]
+            Chat["Claude-Powered Chat"]
+        end
+        AI_Model["Claude Opus 4.5"]
     end
 
-    subgraph Data["Storage (Supabase)"]
+    subgraph Data["Persistence Layer (Supabase)"]
         DB["PostgreSQL Database"]
         Auth["Auth & RLs"]
     end
@@ -39,8 +53,16 @@ graph TD
     UI <--> State
     UI <--> API
     API <--> SDK
-    SDK <--> Claude
-    API <--> DB
+    SDK <--> AI_Model
+    
+    %% AI Feature Mapping
+    API --> Predictive
+    API --> Behavioral
+    API --> Synthesis
+    
+    Predictive <--> DB
+    Behavioral <--> DB
+    Synthesis <--> DB
     DB <--> Auth
 ```
 
@@ -56,6 +78,7 @@ The Atrium BI platform leverages state-of-the-art Large Language Models to deliv
 | **Morning Briefing** | `anthropic/claude-opus-4.5` | Synthesizes ledger deltas into narrative business summaries. |
 | **Scenario Simulator** | Custom Logic + LLM | Combines historical revenue data with LLM-guided elasticity heuristics. |
 | **Opportunity Detection** | Semantic Analysis | Identifies cross-sell and retention patterns from customer segments. |
+| **Vibe Check** | Behavioral Modeling | Simulates customer sentiment and market atmosphere through hash-based drift. |
 
 ---
 
@@ -63,8 +86,8 @@ The Atrium BI platform leverages state-of-the-art Large Language Models to deliv
 
 ### 1. Conversational Intelligence (`ChatInterface`)
 *   **Engine**: Claude-powered business assistant.
-    *   **Context Aware**: Injects real-time revenue, AOV, and transaction volume into every session.
-    *   **Smart Linking**: Automatically detects business-critical keywords (e.g., "Monday", "Revenue", "Customers") for instant deep-dives.
+*   **Context Aware**: Injects real-time revenue, AOV, and transaction volume into every session.
+*   **Smart Linking**: Automatically detects business-critical keywords for instant deep-dives.
 
 ### 2. Scenario Simulator (`ScenarioSimulator`)
 *   **What-If Modeling**: Predict the delta in weekly revenue and customer retention based on pricing strategy fluctuations.
@@ -72,19 +95,23 @@ The Atrium BI platform leverages state-of-the-art Large Language Models to deliv
 
 ### 3. Predictive Revenue Forecast (`PredictiveRevenueForecast`)
 *   **Time-Series Analysis**: 7-day revenue projections with upper and lower confidence intervals.
-*   **Trend Detection**: Identifies peak activity windows and cyclical growth patterns.
+*   **Anomaly Detection**: Monitors for statistical outliers in revenue and transaction frequency.
 
 ### 4. Inventory Optimization (`InventoryOptimization`)
 *   **Stock Health**: Real-time monitoring of core inventory items and high-demand supplies.
 *   **Predictive Reordering**: AI-calculated "Days of Supply" and status alerts (Critical/Low/Good).
 
 ### 5. Customer Segmentation & Churn (`CustomerSegmentation`)
-*   **Segment Mapping**: Automatically clusters patrons into groups like *High-Value Retainers*, *Growing Mid-Market*, and *Occasional Buyers*.
-*   **Churn Identification**: Risk-scoring for customers failing to maintain regular purchase cycles.
+*   **Segment Mapping**: Automatically clusters patrons into groups like *High-Value Retainers* and *Occasional Buyers*.
+*   **Churn Identification**: Risk-scoring for customers failing to maintain regular purchase cycles using dynamic probability modeling.
 
-### 6. Vibe Check & Morning Briefing
-*   **Vibe Check**: Real-time sentiment analysis of customer feedback and service atmosphere.
-*   **Morning Briefing**: A narrative-driven comparison of today's performance vs. previous periods, delivered at the start of the business day.
+### 6. Dynamic Pricing & Attribution
+*   **Pricing Optimization**: Uses elasticity models to suggest peak revenue pricing strategies.
+*   **Attribution Modeling**: Maps revenue contributions across different channels and timeblocks.
+
+### 7. Vibe Check & Morning Briefing
+*   **Vibe Check**: Real-time sentiment analysis and behavioral simulation of customer feedback.
+*   **Morning Briefing**: A narrative-driven comparison of today's performance vs. previous periods, delivered via LLM synthesis.
 
 ---
 
