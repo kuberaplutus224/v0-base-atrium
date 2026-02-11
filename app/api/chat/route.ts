@@ -21,9 +21,6 @@ export async function POST(req: Request) {
     const body = await req.json()
     const messages = body.messages || []
 
-    console.log('[v0] API: Received', messages.length, 'messages')
-    console.log('[v0] API: Last message content:', messages[messages.length - 1]?.content?.substring(0, 50))
-
     if (!messages || messages.length === 0) {
       return Response.json({ error: 'No messages provided' }, { status: 400 })
     }
@@ -33,18 +30,12 @@ export async function POST(req: Request) {
       content: msg.content,
     }))
 
-    console.log('[v0] API: Calling generateText with model: anthropic/claude-opus-4.5')
-
     const result = await generateText({
       model: 'anthropic/claude-opus-4.5',
       system: systemPrompt,
       messages: formattedMessages,
       maxOutputTokens: 1024,
     })
-
-    console.log('[v0] API: generateText completed')
-    console.log('[v0] API: Result text length:', result.text.length)
-    console.log('[v0] API: Result preview:', result.text.substring(0, 100))
 
     // Return as streaming SSE-like format for compatibility with client
     const encoder = new TextEncoder()
@@ -72,9 +63,7 @@ export async function POST(req: Request) {
       },
     })
   } catch (error) {
-    console.error('[v0] API: Error:', error)
     const message = error instanceof Error ? error.message : String(error)
-    console.error('[v0] API: Full error stack:', error)
     return Response.json({ error: message }, { status: 500 })
   }
 }

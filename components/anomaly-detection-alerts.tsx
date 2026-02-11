@@ -1,6 +1,6 @@
-'use client'
-
-import { AlertCircle, TrendingDown, Zap } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { AlertCircle, TrendingDown, Zap, Loader2 } from 'lucide-react'
+import { format, parseISO } from 'date-fns'
 
 interface Alert {
   id: string
@@ -8,31 +8,12 @@ interface Alert {
   description: string
   severity: 'critical' | 'warning' | 'info'
   icon: 'alert' | 'trend' | 'zap'
+  timestamp: string
 }
 
-const alerts: Alert[] = [
-  {
-    id: '1',
-    title: 'Unusual Transaction Spike',
-    description: 'Transaction volume up 45% in last 2 hours. Investigate for bot activity or system error.',
-    severity: 'critical',
-    icon: 'alert',
-  },
-  {
-    id: '2',
-    title: 'Conversion Rate Drop',
-    description: 'Conversion rate dropped from 3.2% to 2.1% today. Possible checkout issue detected.',
-    severity: 'warning',
-    icon: 'trend',
-  },
-  {
-    id: '3',
-    title: 'Inventory Low Alert',
-    description: 'Top 3 products at <10% stock. Auto-reorder triggered.',
-    severity: 'info',
-    icon: 'zap',
-  },
-]
+interface AnomalyDetectionAlertsProps {
+  dates?: string[]
+}
 
 function getSeverityColor(severity: 'critical' | 'warning' | 'info') {
   switch (severity) {
@@ -41,6 +22,8 @@ function getSeverityColor(severity: 'critical' | 'warning' | 'info') {
     case 'warning':
       return 'border-accent/30'
     case 'info':
+      return 'border-secondary/50'
+    default:
       return 'border-secondary/50'
   }
 }
@@ -53,10 +36,76 @@ function getSeverityTextColor(severity: 'critical' | 'warning' | 'info') {
       return 'text-accent'
     case 'info':
       return 'text-foreground'
+    default:
+      return 'text-foreground'
   }
 }
 
-export default function AnomalyDetectionAlerts() {
+function getIconForType(title: string) {
+  const t = title.toLowerCase()
+  if (t.includes('conversion') || t.includes('drop') || t.includes('down')) return 'trend'
+  if (t.includes('inventory') || t.includes('stock')) return 'zap'
+  return 'alert'
+}
+
+export default function AnomalyDetectionAlerts({ dates }: AnomalyDetectionAlertsProps) {
+  const [loading, setLoading] = useState(true)
+  const [alerts, setAlerts] = useState<Alert[]>([])
+
+  useEffect(() => {
+    async function fetchAlerts() {
+      setLoading(true)
+      try {
+        const response = await fetch('/api/alerts')
+        const json = await response.json()
+        const rawAlerts = json.data || []
+
+        // Map and filter by dates if provided
+        const mappedAlerts = rawAlerts.map((a: any) => ({
+          id: a.id,
+          title: a.alert_type,
+          description: a.message,
+          severity: a.severity,
+          timestamp: a.timestamp,
+          icon: getIconForType(a.alert_type)
+        }))
+
+        const filtered = dates && dates.length > 0
+          ? mappedAlerts.filter((a: any) => dates.includes(format(parseISO(a.timestamp), 'yyyy-MM-dd')))
+          : mappedAlerts
+
+        setAlerts(filtered)
+      } catch (error) {
+        console.error('Error fetching alerts:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchAlerts()
+  }, [dates?.join(',')])
+
+  if (loading) {
+    return (
+      <div className="flex h-32 items-center justify-center">
+        <Loader2 className="h-6 w-6 animate-spin text-accent" />
+      </div>
+    )
+  }
+
+  if (alerts.length === 0) {
+    return (
+      <div className="py-8 text-center border border-dashed rounded-lg border-secondary/50">
+        <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
+          System Status: Optimal
+        </p>
+        <p className="text-[10px] text-muted-foreground mt-1 lowercase">
+          No anomalies detected for selected period.
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div className="w-full space-y-3">
       {alerts.map((alert) => (
@@ -78,9 +127,14 @@ export default function AnomalyDetectionAlerts() {
                 {alert.description}
               </p>
             </div>
-            <button className="text-xs text-muted-foreground hover:text-foreground transition-colors flex-shrink-0">
-              Dismiss
-            </button>
+            <div className="flex flex-col items-end gap-1">
+              <span className="text-[10px] text-muted-foreground tabular-nums">
+                {format(parseISO(alert.timestamp), 'HH:mm')}
+              </span>
+              <button className="text-xs text-muted-foreground hover:text-foreground transition-colors flex-shrink-0">
+                Dismiss
+              </button>
+            </div>
           </div>
         </div>
       ))}

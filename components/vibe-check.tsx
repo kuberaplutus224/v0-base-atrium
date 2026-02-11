@@ -1,14 +1,36 @@
-'use client'
-
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface VibeCheckProps {
   sentiment?: number
   keywords?: string[]
+  dates?: string[]
 }
 
-export default function VibeCheck({ sentiment = 88, keywords = ['Friendly Staff', 'Fast WiFi', 'Expensive Pastries'] }: VibeCheckProps) {
+export default function VibeCheck({
+  sentiment: initialSentiment = 88,
+  keywords: initialKeywords = ['Friendly Staff', 'Fast WiFi', 'Expensive Pastries'],
+  dates
+}: VibeCheckProps) {
   const [showTooltip, setShowTooltip] = useState(false)
+  const [sentiment, setSentiment] = useState(initialSentiment)
+  const [keywords, setKeywords] = useState(initialKeywords)
+
+  useEffect(() => {
+    if (!dates || dates.length === 0) return
+
+    // Simulate data-driven drift based on date hash
+    const dateHash = dates.join('').length % 15
+    const drift = (dateHash - 7) * 2 // -14 to +14 variation
+    setSentiment(Math.min(100, Math.max(0, initialSentiment + drift)))
+
+    if (dateHash > 10) {
+      setKeywords(['Long Wait Times', 'Fast WiFi', 'Friendly Staff'])
+    } else if (dateHash < 5) {
+      setKeywords(['Best Coffee', 'Friendly Staff', 'Cozy Atmosphere'])
+    } else {
+      setKeywords(initialKeywords)
+    }
+  }, [dates?.join(',')])
 
   const sentimentLevel = Math.min(Math.max(sentiment, 0), 100)
   const isPositive = sentimentLevel > 60

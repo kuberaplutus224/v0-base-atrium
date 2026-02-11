@@ -1,42 +1,18 @@
-'use client'
-
-import { AlertTriangle, TrendingDown } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { AlertTriangle, TrendingDown, Loader2 } from 'lucide-react'
 
 interface ChurnRisk {
-  customerId: string
+  id: string
   name: string
   riskScore: number
   riskReason: string
   ltv: number
-  monthlySpend: number
+  lastPurchaseDays: number
 }
 
-const atRiskCustomers: ChurnRisk[] = [
-  {
-    customerId: 'C001',
-    name: 'Acme Corp',
-    riskScore: 92,
-    riskReason: 'No purchases in 45 days, previously bought weekly',
-    ltv: 24500,
-    monthlySpend: 450,
-  },
-  {
-    customerId: 'C002',
-    name: 'TechStart Inc',
-    riskScore: 87,
-    riskReason: 'Support tickets increased, satisfaction score dropped',
-    ltv: 18200,
-    monthlySpend: 320,
-  },
-  {
-    customerId: 'C003',
-    name: 'Global Solutions',
-    riskScore: 78,
-    riskReason: 'Competitor inquiry activity detected',
-    ltv: 15600,
-    monthlySpend: 280,
-  },
-]
+interface CustomerChurnRiskScoringProps {
+  dates?: string[]
+}
 
 function getRiskColor(score: number) {
   if (score >= 85) return 'text-destructive bg-destructive/10'
@@ -44,12 +20,59 @@ function getRiskColor(score: number) {
   return 'text-foreground bg-secondary/40'
 }
 
-export default function CustomerChurnRiskScoring() {
+export default function CustomerChurnRiskScoring({ dates }: CustomerChurnRiskScoringProps) {
+  const [loading, setLoading] = useState(true)
+  const [atRiskCustomers, setAtRiskCustomers] = useState<ChurnRisk[]>([])
+
+  useEffect(() => {
+    async function fetchChurn() {
+      setLoading(true)
+      try {
+        const response = await fetch('/api/customers/churn')
+        const json = await response.json()
+        const raw = json.data || []
+
+        const mapped = raw.map((c: any) => ({
+          id: c.id,
+          name: c.customer_name,
+          riskScore: c.risk_score,
+          riskReason: c.reason,
+          ltv: c.ltv_at_risk,
+          lastPurchaseDays: c.last_purchase_days
+        }))
+
+        setAtRiskCustomers(mapped)
+      } catch (error) {
+        console.error('Error fetching churn data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchChurn()
+  }, [dates?.join(',')])
+
+  if (loading) {
+    return (
+      <div className="flex h-48 items-center justify-center">
+        <Loader2 className="h-6 w-6 animate-spin text-accent" />
+      </div>
+    )
+  }
+
+  if (atRiskCustomers.length === 0) {
+    return (
+      <p className="text-sm text-muted-foreground italic text-center py-8">
+        No high-risk churn signals detected.
+      </p>
+    )
+  }
+
   return (
     <div className="w-full">
       <div className="space-y-3">
         {atRiskCustomers.map((customer) => (
-          <div key={customer.customerId} className="border-b border-secondary/40 pb-3 last:border-b-0">
+          <div key={customer.id} className="border-b border-secondary/40 pb-3 last:border-b-0">
             <div className="flex items-start justify-between mb-2">
               <div>
                 <h4 className="font-medium text-foreground text-sm">{customer.name}</h4>
@@ -62,12 +85,12 @@ export default function CustomerChurnRiskScoring() {
 
             <div className="grid grid-cols-2 gap-3 mt-3">
               <div>
-                <p className="text-xs text-muted-foreground">LTV</p>
+                <p className="text-xs text-muted-foreground uppercase tracking-tight font-semibold">LTV at Risk</p>
                 <p className="font-serif font-semibold text-foreground">${customer.ltv.toLocaleString()}</p>
               </div>
               <div>
-                <p className="text-xs text-muted-foreground">Monthly Spend</p>
-                <p className="font-serif font-semibold text-foreground">${customer.monthlySpend}</p>
+                <p className="text-xs text-muted-foreground uppercase tracking-tight font-semibold">Last Activity</p>
+                <p className="font-serif font-semibold text-foreground">{customer.lastPurchaseDays} days ago</p>
               </div>
             </div>
           </div>

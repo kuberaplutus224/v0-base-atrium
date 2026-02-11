@@ -7,6 +7,7 @@ import { useChat } from '@ai-sdk/react'
 import { DefaultChatTransport } from 'ai'
 import { Send, Copy, Share2 } from 'lucide-react'
 import MorningBriefing from './morning-briefing'
+import { RevenueData } from '@/lib/supabase'
 
 interface Message {
   id: string
@@ -14,9 +15,13 @@ interface Message {
   content: string
 }
 
+interface ChatInterfaceProps {
+  dates?: string[]
+}
+
 const interactiveKeywords = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'product', 'sales', 'revenue', 'customers']
 
-export default function ChatInterface() {
+export default function ChatInterface({ dates }: ChatInterfaceProps) {
   const [localMessages, setLocalMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -88,21 +93,31 @@ export default function ChatInterface() {
     setIsLoading(true)
 
     try {
-      console.log('[v0] Chat: Sending message to API')
+      const statsResponse = await fetch('/api/revenue')
+      const statsJson = await statsResponse.json()
+      const allRev: RevenueData[] = statsJson.data || []
+      const periodData = dates && dates.length > 0
+        ? allRev.filter((d: RevenueData) => dates.includes(d.date))
+        : allRev
+
+      const totalRevenue = periodData.reduce((sum: number, d: RevenueData) => sum + d.revenue, 0)
+      const avgRevenue = periodData.length > 0 ? totalRevenue / periodData.length : 0
+      const txnCount = periodData.reduce((sum: number, d: any) => sum + d.transactions, 0)
+
+      const contextHint = `Current Period (${dates?.join(',')}): Total Revenue $${totalRevenue.toLocaleString()}, Avg/Day $${avgRevenue.toFixed(0)}, Total Transactions ${txnCount}.`
+
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [...localMessages, userMessage],
+          contextHint: contextHint
         }),
       })
 
-      console.log('[v0] Chat: Response status:', response.status)
-
       if (!response.ok) {
         const error = await response.json()
-        console.error('[v0] Chat: API error:', error)
-        throw new Error(`API error: ${error.error}`)
+        throw new Error(error.error || 'Failed to get a response from the AI')
       }
 
       const reader = response.body?.getReader()
@@ -122,17 +137,17 @@ export default function ChatInterface() {
 
         for (const line of lines) {
           if (!line.trim() || !line.startsWith('data:')) continue
-          
+
           const data = line.slice(5).trim()
           if (data === '[DONE]') continue
-          
+
           try {
             const parsed = JSON.parse(data)
             if (parsed.text) {
               assistantContent += parsed.text
             }
           } catch (e) {
-            console.log('[v0] Parse error:', e)
+            // Silently ignore parse errors for non-JSON lines
           }
         }
       }
@@ -166,7 +181,7 @@ export default function ChatInterface() {
     <div className="flex flex-col gap-6">
       {/* Pinned Morning Briefing */}
       <div className="sticky top-0 z-20 pb-4">
-        <MorningBriefing />
+        <MorningBriefing dates={dates} />
       </div>
 
       {/* Messages Container */}
@@ -182,16 +197,14 @@ export default function ChatInterface() {
             {localMessages.map((message, index) => (
               <React.Fragment key={message.id}>
                 <div
-                  className={`animate-fadeIn flex ${
-                    message.role === 'user' ? 'justify-end' : 'justify-start'
-                  }`}
+                  className={`animate-fadeIn flex ${message.role === 'user' ? 'justify-end' : 'justify-start'
+                    }`}
                 >
                   <div
-                    className={`max-w-md ${
-                      message.role === 'user'
-                        ? 'rounded-3xl rounded-br-none bg-secondary text-secondary-foreground'
-                        : 'rounded-lg'
-                    }`}
+                    className={`max-w-md ${message.role === 'user'
+                      ? 'rounded-3xl rounded-br-none bg-secondary text-secondary-foreground'
+                      : 'rounded-lg'
+                      }`}
                   >
                     {message.role === 'assistant' ? (
                       <div className="space-y-2">

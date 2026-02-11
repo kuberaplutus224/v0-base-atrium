@@ -1,5 +1,3 @@
-'use client'
-
 import { Zap, TrendingUp } from 'lucide-react'
 
 interface Opportunity {
@@ -11,28 +9,32 @@ interface Opportunity {
   urgency: 'critical' | 'high' | 'medium'
 }
 
+interface OpportunityDetectionProps {
+  dates?: string[]
+}
+
 const opportunities: Opportunity[] = [
   {
     id: '1',
-    title: 'Bundle Cross-Sell Opportunity',
-    description: 'Customers buying Widget X rarely add Service Y. AI suggests 30% of these could be upsold.',
-    potentialImpact: '+$12.5K MRR',
+    title: 'Whole Bean & Grinder Bundle',
+    description: 'Customers purchasing Kaapi Heritage Beans rarely add a local grinder service. 30% retention potential detected.',
+    potentialImpact: '+$1.5K Revenue',
     effort: 'low',
     urgency: 'high',
   },
   {
     id: '2',
-    title: 'Retention Window Opening',
-    description: 'Mid-Market segment shows renewal churn risk spike. Proactive outreach could recover $24K annually.',
-    potentialImpact: '+$24K ARR',
+    title: 'Morning Routine Consistency',
+    description: 'The "Early Bird" segment shows a lapse in visit frequency. Proactive loyalty push recommended.',
+    potentialImpact: '+120 Visits',
     effort: 'medium',
     urgency: 'high',
   },
   {
     id: '3',
-    title: 'Inventory Arbitrage Play',
-    description: 'Supplier price drop detected. Stock up on top 5 SKUs now for 18% margin improvement.',
-    potentialImpact: '+8K units profit',
+    title: 'Oat Milk Supply Arbitrage',
+    description: 'Local supplier price drop detected for Barista Edition Oat Milk. Stock up now to improve beverage margins.',
+    potentialImpact: '+15% Margin',
     effort: 'low',
     urgency: 'critical',
   },
@@ -49,7 +51,7 @@ function getUrgencyColor(urgency: 'critical' | 'high' | 'medium') {
   }
 }
 
-export default function OpportunityDetection() {
+export default function OpportunityDetection({ dates }: OpportunityDetectionProps) {
   return (
     <div className="w-full space-y-3">
       {opportunities.map((opp) => (
@@ -69,15 +71,15 @@ export default function OpportunityDetection() {
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <h4 className="font-medium text-foreground text-sm">{opp.title}</h4>
-                  <p className="text-xs text-muted-foreground mt-1 break-words">{opp.description}</p>
+                  <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">{opp.description}</p>
                 </div>
                 <p className={`text-sm font-semibold flex-shrink-0 ${opp.urgency === 'critical' ? 'text-destructive' : 'text-accent'}`}>
                   {opp.potentialImpact}
                 </p>
               </div>
-              <div className="flex gap-2 mt-2 text-xs">
-                <span className="text-muted-foreground">Effort: {opp.effort}</span>
-                <span className="text-muted-foreground">Urgency: {opp.urgency}</span>
+              <div className="flex gap-2 mt-2 text-[10px] uppercase font-bold tracking-wider">
+                <span className="text-muted-foreground/80">Effort: {opp.effort}</span>
+                <span className="text-muted-foreground/80">Urgency: {opp.urgency}</span>
               </div>
             </div>
           </div>

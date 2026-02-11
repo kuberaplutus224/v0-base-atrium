@@ -1,0 +1,186 @@
+Transaction ID,Date,Time,Product,Category,Qty,Price,Total,Payment Method
+TXN-20260212-000,2026-02-12,09:48,Oat Milk Latte,Coffee,1,5.50,5.50,Digital Wallet
+TXN-20260212-001,2026-02-12,07:59,Cappuccino,Coffee,2,4.00,8.00,Credit Card
+TXN-20260212-002,2026-02-12,09:57,Oat Milk Latte,Coffee,1,5.50,5.50,Digital Wallet
+TXN-20260212-003,2026-02-12,18:08,Hot Tea,Tea,2,3.00,6.00,Credit Card
+TXN-20260212-004,2026-02-12,09:39,Blueberry Muffin,Pastry,1,3.50,3.50,Digital Wallet
+TXN-20260212-005,2026-02-12,17:17,Oat Milk Latte,Coffee,1,5.50,5.50,Credit Card
+TXN-20260212-006,2026-02-12,08:23,Cappuccino,Coffee,1,4.00,4.00,Digital Wallet
+TXN-20260212-007,2026-02-12,08:32,Latte,Coffee,2,4.50,9.00,Cash
+TXN-20260212-008,2026-02-12,07:22,Oat Milk Latte,Coffee,1,5.50,5.50,Credit Card
+TXN-20260212-009,2026-02-12,07:40,Blueberry Muffin,Pastry,1,3.50,3.50,Credit Card
+TXN-20260212-010,2026-02-12,09:40,Breakfast Sandwich,Food,1,8.50,8.50,Cash
+TXN-20260212-011,2026-02-12,09:57,Croissant,Pastry,1,3.75,3.75,Credit Card
+TXN-20260212-012,2026-02-12,16:47,Latte,Coffee,1,4.50,4.50,Credit Card
+TXN-20260212-013,2026-02-12,14:01,Croissant,Pastry,3,3.75,11.25,Cash
+TXN-20260212-014,2026-02-12,15:33,Espresso,Coffee,2,3.00,6.00,Credit Card
+TXN-20260212-015,2026-02-12,10:58,Avocado Toast,Food,3,9.00,27.00,Cash
+TXN-20260212-016,2026-02-12,12:40,Hot Tea,Tea,3,3.00,9.00,Cash
+TXN-20260212-017,2026-02-12,14:22,Oat Milk Latte,Coffee,3,5.50,16.50,Cash
+TXN-20260212-018,2026-02-12,07:59,Hot Tea,Tea,1,3.00,3.00,Cash
+TXN-20260212-019,2026-02-12,17:40,Cappuccino,Coffee,2,4.00,8.00,Credit Card
+TXN-20260212-020,2026-02-12,17:27,Espresso,Coffee,1,3.00,3.00,Cash
+TXN-20260212-021,2026-02-12,18:44,Cappuccino,Coffee,1,4.00,4.00,Digital Wallet
+TXN-20260212-022,2026-02-12,14:11,Oat Milk Latte,Coffee,2,5.50,11.00,Digital Wallet
+TXN-20260212-023,2026-02-12,16:07,Hot Tea,Tea,2,3.00,6.00,Credit Card
+TXN-20260212-024,2026-02-12,10:35,Hot Tea,Tea,2,3.00,6.00,Credit Card
+TXN-20260212-025,2026-02-12,12:29,Oat Milk Latte,Coffee,1,5.50,5.50,Digital Wallet
+TXN-20260212-026,2026-02-12,13:49,Hot Tea,Tea,1,3.00,3.00,Credit Card
+TXN-20260212-027,2026-02-12,07:34,Espresso,Coffee,2,3.00,6.00,Digital Wallet
+TXN-20260212-028,2026-02-12,18:03,Breakfast Sandwich,Food,1,8.50,8.50,Cash
+TXN-20260212-029,2026-02-12,13:42,Espresso,Coffee,2,3.00,6.00,Digital Wallet
+TXN-20260212-030,2026-02-12,11:10,Espresso,Coffee,3,3.00,9.00,Cash
+TXN-20260212-031,2026-02-12,14:37,Hot Tea,Tea,2,3.00,6.00,Credit Card
+TXN-20260212-032,2026-02-12,16:16,Americano,Coffee,1,3.50,3.50,Digital Wallet
+TXN-20260212-033,2026-02-12,14:49,Oat Milk Latte,Coffee,2,5.50,11.00,Credit Card
+TXN-20260212-034,2026-02-12,08:50,Hot Tea,Tea,1,3.00,3.00,Cash
+TXN-20260212-035,2026-02-12,08:34,Blueberry Muffin,Pastry,2,3.50,7.00,Credit Card
+TXN-20260212-036,2026-02-12,11:14,Blueberry Muffin,Pastry,1,3.50,3.50,Cash
+TXN-20260212-037,2026-02-12,07:30,Oat Milk Latte,Coffee,1,5.50,5.50,Digital Wallet
+TXN-20260212-038,2026-02-12,16:42,Espresso,Coffee,1,3.00,3.00,Digital Wallet
+TXN-20260212-039,2026-02-12,10:55,Latte,Coffee,2,4.50,9.00,Credit Card
+TXN-20260212-040,2026-02-12,07:46,Oat Milk Latte,Coffee,1,5.50,5.50,Digital Wallet
+TXN-20260212-041,2026-02-12,15:26,Breakfast Sandwich,Food,3,8.50,25.50,Digital Wallet
+TXN-20260212-042,2026-02-12,15:35,Avocado Toast,Food,1,9.00,9.00,Digital Wallet
+TXN-20260212-043,2026-02-12,10:14,Breakfast Sandwich,Food,1,8.50,8.50,Credit Card
+TXN-20260212-044,2026-02-12,12:56,Hot Tea,Tea,3,3.00,9.00,Credit Card
+TXN-20260212-045,2026-02-12,08:18,Oat Milk Latte,Coffee,2,5.50,11.00,Credit Card
+TXN-20260212-046,2026-02-12,15:42,Latte,Coffee,2,4.50,9.00,Credit Card
+TXN-20260212-047,2026-02-12,14:55,Latte,Coffee,1,4.50,4.50,Cash
+TXN-20260212-048,2026-02-12,07:08,Espresso,Coffee,2,3.00,6.00,Credit Card
+TXN-20260212-049,2026-02-12,11:22,Breakfast Sandwich,Food,1,8.50,8.50,Digital Wallet
+TXN-20260212-050,2026-02-12,11:35,Hot Tea,Tea,1,3.00,3.00,Credit Card
+TXN-20260212-051,2026-02-12,11:43,Blueberry Muffin,Pastry,2,3.50,7.00,Digital Wallet
+TXN-20260212-052,2026-02-12,08:09,Oat Milk Latte,Coffee,1,5.50,5.50,Credit Card
+TXN-20260212-053,2026-02-12,07:48,Oat Milk Latte,Coffee,1,5.50,5.50,Credit Card
+TXN-20260212-054,2026-02-12,08:04,Croissant,Pastry,3,3.75,11.25,Credit Card
+TXN-20260212-055,2026-02-12,16:06,Espresso,Coffee,2,3.00,6.00,Cash
+TXN-20260212-056,2026-02-12,11:13,Blueberry Muffin,Pastry,3,3.50,10.50,Cash
+TXN-20260212-057,2026-02-12,16:19,Latte,Coffee,3,4.50,13.50,Digital Wallet
+TXN-20260212-058,2026-02-12,08:26,Latte,Coffee,2,4.50,9.00,Digital Wallet
+TXN-20260212-059,2026-02-12,13:09,Americano,Coffee,1,3.50,3.50,Credit Card
+TXN-20260212-060,2026-02-12,15:59,Avocado Toast,Food,1,9.00,9.00,Cash
+TXN-20260212-061,2026-02-12,13:24,Blueberry Muffin,Pastry,1,3.50,3.50,Cash
+TXN-20260212-062,2026-02-12,15:01,Cappuccino,Coffee,2,4.00,8.00,Cash
+TXN-20260212-063,2026-02-12,10:12,Avocado Toast,Food,2,9.00,18.00,Digital Wallet
+TXN-20260212-064,2026-02-12,08:56,Latte,Coffee,2,4.50,9.00,Cash
+TXN-20260212-065,2026-02-12,15:35,Espresso,Coffee,1,3.00,3.00,Cash
+TXN-20260212-066,2026-02-12,09:31,Blueberry Muffin,Pastry,2,3.50,7.00,Cash
+TXN-20260212-067,2026-02-12,15:07,Breakfast Sandwich,Food,1,8.50,8.50,Cash
+TXN-20260212-068,2026-02-12,12:27,Hot Tea,Tea,1,3.00,3.00,Cash
+TXN-20260212-069,2026-02-12,13:08,Avocado Toast,Food,1,9.00,9.00,Credit Card
+TXN-20260212-070,2026-02-12,15:31,Breakfast Sandwich,Food,1,8.50,8.50,Digital Wallet
+TXN-20260212-071,2026-02-12,15:51,Espresso,Coffee,1,3.00,3.00,Credit Card
+TXN-20260212-072,2026-02-12,17:57,Americano,Coffee,1,3.50,3.50,Cash
+TXN-20260212-073,2026-02-12,09:24,Cappuccino,Coffee,1,4.00,4.00,Cash
+TXN-20260212-074,2026-02-12,11:27,Oat Milk Latte,Coffee,1,5.50,5.50,Digital Wallet
+TXN-20260212-075,2026-02-12,18:44,Latte,Coffee,1,4.50,4.50,Digital Wallet
+TXN-20260212-076,2026-02-12,09:12,Breakfast Sandwich,Food,3,8.50,25.50,Cash
+TXN-20260212-077,2026-02-12,10:09,Blueberry Muffin,Pastry,1,3.50,3.50,Digital Wallet
+TXN-20260212-078,2026-02-12,18:26,Latte,Coffee,2,4.50,9.00,Cash
+TXN-20260212-079,2026-02-12,15:18,Latte,Coffee,1,4.50,4.50,Credit Card
+TXN-20260212-080,2026-02-12,18:08,Hot Tea,Tea,2,3.00,6.00,Cash
+TXN-20260212-081,2026-02-12,11:01,Hot Tea,Tea,1,3.00,3.00,Digital Wallet
+TXN-20260212-082,2026-02-12,07:00,Latte,Coffee,1,4.50,4.50,Digital Wallet
+TXN-20260212-083,2026-02-12,16:38,Americano,Coffee,1,3.50,3.50,Credit Card
+TXN-20260212-084,2026-02-12,08:31,Hot Tea,Tea,3,3.00,9.00,Credit Card
+TXN-20260212-085,2026-02-12,12:30,Breakfast Sandwich,Food,1,8.50,8.50,Cash
+TXN-20260212-086,2026-02-12,08:10,Latte,Coffee,1,4.50,4.50,Cash
+TXN-20260212-087,2026-02-12,14:04,Americano,Coffee,1,3.50,3.50,Credit Card
+TXN-20260212-088,2026-02-12,16:47,Hot Tea,Tea,1,3.00,3.00,Cash
+TXN-20260212-089,2026-02-12,16:50,Croissant,Pastry,3,3.75,11.25,Cash
+TXN-20260212-090,2026-02-12,18:21,Breakfast Sandwich,Food,2,8.50,17.00,Digital Wallet
+TXN-20260212-091,2026-02-12,13:43,Hot Tea,Tea,1,3.00,3.00,Digital Wallet
+TXN-20260212-092,2026-02-12,14:14,Blueberry Muffin,Pastry,1,3.50,3.50,Cash
+TXN-20260212-093,2026-02-12,07:11,Oat Milk Latte,Coffee,3,5.50,16.50,Digital Wallet
+TXN-20260212-094,2026-02-12,08:28,Croissant,Pastry,2,3.75,7.50,Credit Card
+TXN-20260212-095,2026-02-12,09:40,Croissant,Pastry,1,3.75,3.75,Credit Card
+TXN-20260212-096,2026-02-12,12:54,Hot Tea,Tea,2,3.00,6.00,Cash
+TXN-20260212-097,2026-02-12,08:58,Avocado Toast,Food,1,9.00,9.00,Digital Wallet
+TXN-20260212-098,2026-02-12,12:18,Americano,Coffee,1,3.50,3.50,Credit Card
+TXN-20260212-099,2026-02-12,08:15,Cappuccino,Coffee,2,4.00,8.00,Digital Wallet
+TXN-20260212-100,2026-02-12,10:30,Blueberry Muffin,Pastry,3,3.50,10.50,Cash
+TXN-20260212-101,2026-02-12,11:25,Latte,Coffee,1,4.50,4.50,Cash
+TXN-20260212-102,2026-02-12,17:59,Croissant,Pastry,2,3.75,7.50,Cash
+TXN-20260212-103,2026-02-12,09:24,Blueberry Muffin,Pastry,1,3.50,3.50,Cash
+TXN-20260212-104,2026-02-12,09:16,Blueberry Muffin,Pastry,2,3.50,7.00,Cash
+TXN-20260212-105,2026-02-12,17:36,Espresso,Coffee,2,3.00,6.00,Cash
+TXN-20260212-106,2026-02-12,14:25,Americano,Coffee,3,3.50,10.50,Credit Card
+TXN-20260212-107,2026-02-12,09:46,Cappuccino,Coffee,1,4.00,4.00,Cash
+TXN-20260212-108,2026-02-12,14:09,Latte,Coffee,3,4.50,13.50,Digital Wallet
+TXN-20260212-109,2026-02-12,08:27,Cappuccino,Coffee,2,4.00,8.00,Cash
+TXN-20260212-110,2026-02-12,16:37,Americano,Coffee,2,3.50,7.00,Cash
+TXN-20260212-111,2026-02-12,15:38,Avocado Toast,Food,2,9.00,18.00,Digital Wallet
+TXN-20260212-112,2026-02-12,12:00,Americano,Coffee,1,3.50,3.50,Digital Wallet
+TXN-20260212-113,2026-02-12,07:57,Blueberry Muffin,Pastry,2,3.50,7.00,Cash
+TXN-20260212-114,2026-02-12,09:52,Latte,Coffee,1,4.50,4.50,Cash
+TXN-20260212-115,2026-02-12,07:58,Americano,Coffee,1,3.50,3.50,Cash
+TXN-20260212-116,2026-02-12,11:56,Avocado Toast,Food,2,9.00,18.00,Cash
+TXN-20260212-117,2026-02-12,15:38,Avocado Toast,Food,1,9.00,9.00,Digital Wallet
+TXN-20260212-118,2026-02-12,07:51,Avocado Toast,Food,3,9.00,27.00,Cash
+TXN-20260212-119,2026-02-12,18:52,Croissant,Pastry,1,3.75,3.75,Credit Card
+TXN-20260212-120,2026-02-12,09:11,Espresso,Coffee,2,3.00,6.00,Cash
+TXN-20260212-121,2026-02-12,09:19,Hot Tea,Tea,1,3.00,3.00,Credit Card
+TXN-20260212-122,2026-02-12,18:07,Avocado Toast,Food,1,9.00,9.00,Credit Card
+TXN-20260212-123,2026-02-12,08:29,Breakfast Sandwich,Food,2,8.50,17.00,Digital Wallet
+TXN-20260212-124,2026-02-12,14:19,Breakfast Sandwich,Food,1,8.50,8.50,Cash
+TXN-20260212-125,2026-02-12,15:41,Americano,Coffee,1,3.50,3.50,Digital Wallet
+TXN-20260212-126,2026-02-12,08:58,Hot Tea,Tea,3,3.00,9.00,Cash
+TXN-20260212-127,2026-02-12,18:24,Espresso,Coffee,1,3.00,3.00,Cash
+TXN-20260212-128,2026-02-12,07:53,Oat Milk Latte,Coffee,2,5.50,11.00,Digital Wallet
+TXN-20260212-129,2026-02-12,09:28,Breakfast Sandwich,Food,1,8.50,8.50,Digital Wallet
+TXN-20260212-130,2026-02-12,07:04,Espresso,Coffee,2,3.00,6.00,Credit Card
+TXN-20260212-131,2026-02-12,17:53,Avocado Toast,Food,1,9.00,9.00,Cash
+TXN-20260212-132,2026-02-12,17:08,Espresso,Coffee,1,3.00,3.00,Credit Card
+TXN-20260212-133,2026-02-12,17:35,Croissant,Pastry,2,3.75,7.50,Digital Wallet
+TXN-20260212-134,2026-02-12,15:32,Espresso,Coffee,1,3.00,3.00,Digital Wallet
+TXN-20260212-135,2026-02-12,17:54,Avocado Toast,Food,3,9.00,27.00,Digital Wallet
+TXN-20260212-136,2026-02-12,15:35,Blueberry Muffin,Pastry,2,3.50,7.00,Credit Card
+TXN-20260212-137,2026-02-12,08:49,Cappuccino,Coffee,1,4.00,4.00,Cash
+TXN-20260212-138,2026-02-12,09:08,Latte,Coffee,1,4.50,4.50,Digital Wallet
+TXN-20260212-139,2026-02-12,10:09,Breakfast Sandwich,Food,3,8.50,25.50,Digital Wallet
+TXN-20260212-140,2026-02-12,18:34,Latte,Coffee,2,4.50,9.00,Cash
+TXN-20260212-141,2026-02-12,07:42,Blueberry Muffin,Pastry,3,3.50,10.50,Digital Wallet
+TXN-20260212-142,2026-02-12,15:56,Americano,Coffee,1,3.50,3.50,Digital Wallet
+TXN-20260212-143,2026-02-12,17:15,Americano,Coffee,1,3.50,3.50,Credit Card
+TXN-20260212-144,2026-02-12,18:45,Croissant,Pastry,1,3.75,3.75,Credit Card
+TXN-20260212-145,2026-02-12,11:57,Avocado Toast,Food,2,9.00,18.00,Digital Wallet
+TXN-20260212-146,2026-02-12,11:58,Espresso,Coffee,1,3.00,3.00,Digital Wallet
+TXN-20260212-147,2026-02-12,10:25,Blueberry Muffin,Pastry,1,3.50,3.50,Digital Wallet
+TXN-20260212-148,2026-02-12,09:46,Espresso,Coffee,2,3.00,6.00,Credit Card
+TXN-20260212-149,2026-02-12,14:35,Croissant,Pastry,3,3.75,11.25,Cash
+TXN-20260212-150,2026-02-12,11:55,Breakfast Sandwich,Food,2,8.50,17.00,Cash
+TXN-20260212-151,2026-02-12,13:54,Avocado Toast,Food,1,9.00,9.00,Credit Card
+TXN-20260212-152,2026-02-12,17:26,Oat Milk Latte,Coffee,1,5.50,5.50,Credit Card
+TXN-20260212-153,2026-02-12,08:29,Latte,Coffee,1,4.50,4.50,Credit Card
+TXN-20260212-154,2026-02-12,13:54,Croissant,Pastry,1,3.75,3.75,Digital Wallet
+TXN-20260212-155,2026-02-12,16:12,Cappuccino,Coffee,2,4.00,8.00,Credit Card
+TXN-20260212-156,2026-02-12,10:52,Cappuccino,Coffee,1,4.00,4.00,Cash
+TXN-20260212-157,2026-02-12,15:21,Croissant,Pastry,2,3.75,7.50,Digital Wallet
+TXN-20260212-158,2026-02-12,16:49,Latte,Coffee,2,4.50,9.00,Digital Wallet
+TXN-20260212-159,2026-02-12,10:55,Avocado Toast,Food,1,9.00,9.00,Digital Wallet
+TXN-20260212-160,2026-02-12,15:21,Croissant,Pastry,3,3.75,11.25,Digital Wallet
+TXN-20260212-161,2026-02-12,18:14,Avocado Toast,Food,1,9.00,9.00,Credit Card
+TXN-20260212-162,2026-02-12,08:38,Oat Milk Latte,Coffee,1,5.50,5.50,Digital Wallet
+TXN-20260212-163,2026-02-12,18:07,Latte,Coffee,2,4.50,9.00,Credit Card
+TXN-20260212-164,2026-02-12,12:34,Croissant,Pastry,1,3.75,3.75,Cash
+TXN-20260212-165,2026-02-12,08:30,Latte,Coffee,2,4.50,9.00,Cash
+TXN-20260212-166,2026-02-12,08:51,Breakfast Sandwich,Food,2,8.50,17.00,Digital Wallet
+TXN-20260212-167,2026-02-12,11:43,Croissant,Pastry,2,3.75,7.50,Credit Card
+TXN-20260212-168,2026-02-12,09:03,Croissant,Pastry,1,3.75,3.75,Cash
+TXN-20260212-169,2026-02-12,13:59,Oat Milk Latte,Coffee,3,5.50,16.50,Digital Wallet
+TXN-20260212-170,2026-02-12,07:07,Americano,Coffee,1,3.50,3.50,Digital Wallet
+TXN-20260212-171,2026-02-12,11:46,Latte,Coffee,1,4.50,4.50,Digital Wallet
+TXN-20260212-172,2026-02-12,13:46,Breakfast Sandwich,Food,1,8.50,8.50,Credit Card
+TXN-20260212-173,2026-02-12,15:07,Espresso,Coffee,2,3.00,6.00,Cash
+TXN-20260212-174,2026-02-12,12:30,Latte,Coffee,1,4.50,4.50,Cash
+TXN-20260212-175,2026-02-12,13:10,Cappuccino,Coffee,2,4.00,8.00,Credit Card
+TXN-20260212-176,2026-02-12,08:22,Espresso,Coffee,1,3.00,3.00,Digital Wallet
+TXN-20260212-177,2026-02-12,18:00,Americano,Coffee,1,3.50,3.50,Cash
+TXN-20260212-178,2026-02-12,14:17,Hot Tea,Tea,2,3.00,6.00,Credit Card
+TXN-20260212-179,2026-02-12,09:07,Breakfast Sandwich,Food,1,8.50,8.50,Credit Card
+TXN-20260212-180,2026-02-12,16:15,Oat Milk Latte,Coffee,3,5.50,16.50,Credit Card
+TXN-20260212-181,2026-02-12,14:01,Hot Tea,Tea,3,3.00,9.00,Digital Wallet
+TXN-20260212-182,2026-02-12,07:42,Hot Tea,Tea,1,3.00,3.00,Cash
+TXN-20260212-183,2026-02-12,10:27,Croissant,Pastry,1,3.75,3.75,Cash
+TXN-20260212-184,2026-02-12,12:43,Latte,Coffee,1,4.50,4.50,Digital Wallet
