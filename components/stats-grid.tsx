@@ -33,101 +33,96 @@ const transactionData = [
 
 export default function StatsGrid({ stats }: StatsGridProps) {
   return (
-    <div className="space-y-1">
-      {/* Stats Header Row */}
-      <div className="grid grid-cols-1 gap-0 md:grid-cols-3 lg:grid-cols-3">
+    <div className="space-y-6">
+      {/* Stats Header Row - Modern Cards */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {/* Revenue Card */}
-        <div className="space-y-4 py-6 px-0">
-          <div>
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-              Total Revenue
-            </p>
-            <p className="mt-2 font-serif text-4xl font-semibold text-foreground">{stats.revenue}</p>
-          </div>
+        <div className="saas-card">
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
+            Total Revenue
+          </p>
+          <p className="text-3xl font-bold text-foreground">{stats.revenue}</p>
+          <p className="text-xs text-muted-foreground mt-2">+12.5% from last period</p>
         </div>
-
-        {/* Divider */}
-        <div className="hidden border-l border-border md:block" />
 
         {/* Transactions Card */}
-        <div className="space-y-4 py-6 px-6">
-          <div>
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-              Transactions
-            </p>
-            <p className="mt-2 font-serif text-4xl font-semibold text-foreground">
-              {stats.transactions}
-            </p>
-          </div>
+        <div className="saas-card">
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
+            Transactions
+          </p>
+          <p className="text-3xl font-bold text-foreground">
+            {stats.transactions}
+          </p>
+          <p className="text-xs text-muted-foreground mt-2">Active transactions</p>
         </div>
 
-        {/* Divider */}
-        <div className="hidden border-l border-border md:block" />
-
         {/* Conversion Rate Card */}
-        <div className="space-y-4 py-6 px-6">
-          <div>
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-              Conversion Rate
-            </p>
-            <p className="mt-2 font-serif text-4xl font-semibold text-foreground">
-              {stats.conversionRate}
-            </p>
-          </div>
+        <div className="saas-card">
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
+            Conversion Rate
+          </p>
+          <p className="text-3xl font-bold text-foreground">
+            {stats.conversionRate}
+          </p>
+          <p className="text-xs text-muted-foreground mt-2">+2.1% improvement</p>
         </div>
       </div>
 
-      {/* Horizontal Divider */}
-      <div className="border-b border-border" />
-
       {/* Charts Row */}
-      <div className="grid grid-cols-1 gap-8 py-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {/* Revenue Chart */}
-        <div className="h-40">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={revenueData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-              <XAxis dataKey="day" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} />
-              <YAxis hide />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: 'hsl(var(--card))',
-                  border: `1px solid hsl(var(--border))`,
-                  borderRadius: '0.5rem',
-                }}
-              />
-              <Bar dataKey="value" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+        <div className="saas-card-lg">
+          <h3 className="text-sm font-semibold text-foreground mb-4">Revenue Trend</h3>
+          <div className="h-40">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={revenueData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                <XAxis dataKey="day" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} />
+                <YAxis hide />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'hsl(var(--card))',
+                    border: `1px solid hsl(var(--border))`,
+                    borderRadius: '0.5rem',
+                  }}
+                />
+                <Bar dataKey="value" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Transactions Chart */}
-        <div className="h-40">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={transactionData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-              <XAxis dataKey="day" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} />
-              <YAxis hide />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: 'hsl(var(--card))',
-                  border: `1px solid hsl(var(--border))`,
-                  borderRadius: '0.5rem',
-                }}
-              />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="hsl(var(--chart-2))"
-                dot={false}
-                strokeWidth={2}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+        <div className="saas-card-lg">
+          <h3 className="text-sm font-semibold text-foreground mb-4">Transaction Volume</h3>
+          <div className="h-40">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={transactionData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                <XAxis dataKey="day" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} />
+                <YAxis hide />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'hsl(var(--card))',
+                    border: `1px solid hsl(var(--border))`,
+                    borderRadius: '0.5rem',
+                  }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="hsl(var(--chart-2))"
+                  dot={false}
+                  strokeWidth={2}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Vibe Check - Customer Sentiment */}
-        <div className="h-40 flex flex-col justify-center">
+        <div className="saas-card-lg flex flex-col justify-center">
+          <h3 className="text-sm font-semibold text-foreground mb-4">Sentiment</h3>
           <VibeCheck sentiment={88} keywords={['Friendly Staff', 'Fast WiFi', 'Expensive Pastries']} />
         </div>
       </div>

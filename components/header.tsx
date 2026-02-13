@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Calendar as CalendarIcon } from 'lucide-react'
+import { Calendar as CalendarIcon, Search, User } from 'lucide-react'
 import { format, parseISO } from 'date-fns'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -55,38 +55,34 @@ export default function Header() {
 
   const getButtonText = () => {
     if (!initialRange.from) return 'Select Range'
-    if (!initialRange.to) return format(initialRange.from, 'LLL dd, y')
-    return `${format(initialRange.from, 'LLL dd')} - ${format(initialRange.to, 'LLL dd, y')}`
+    if (!initialRange.to) return format(initialRange.from, 'MMM dd, y')
+    return `${format(initialRange.from, 'MMM dd')} - ${format(initialRange.to, 'MMM dd, y')}`
   }
 
   return (
-    <header className="border-b border-border bg-card sticky top-0 z-50">
-      <div className="px-4 py-5 md:px-8">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            {/* Minimalist Base Logo */}
-            <div className="relative w-6 h-6">
-              <div className="absolute inset-0 bg-foreground rounded-sm" />
-              <div className="absolute inset-1 bg-background rounded-xs" />
+    <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur-sm">
+      <div className="px-6 py-4 md:px-8">
+        <div className="flex items-center justify-between gap-6">
+          {/* Left: Logo & Brand */}
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <div className="flex items-center justify-center w-8 h-8 rounded-md bg-primary text-primary-foreground font-semibold text-sm">
+              B
             </div>
-            {/* Base Wordmark */}
-            <h1 className="font-serif text-3xl font-medium text-foreground" style={{ letterSpacing: '0.05em' }}>
+            <h1 className="hidden sm:block text-lg font-semibold text-foreground">
               Base
             </h1>
           </div>
 
-          {/* Date Picker & Merchant Name - Center */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-4">
-            <h2 className="font-serif text-2xl font-semibold text-foreground hidden md:block">
-              Kaapi
-            </h2>
-            <div className="h-6 w-px bg-border hidden md:block" />
+          {/* Center: Date Picker */}
+          <div className="hidden md:flex items-center gap-4 flex-1 justify-center">
+            <span className="text-sm font-medium text-muted-foreground">Kaapi</span>
+            <div className="h-5 w-px bg-border" />
             <Popover>
               <PopoverTrigger asChild>
                 <Button
                   variant={'outline'}
                   className={cn(
-                    'w-[300px] justify-start text-left font-normal border-2 h-10',
+                    'w-[280px] justify-start text-left text-sm border h-9',
                     !initialRange.from && 'text-muted-foreground'
                   )}
                 >
@@ -106,10 +102,20 @@ export default function Header() {
             </Popover>
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* Right: Actions */}
+          <div className="flex items-center gap-3 flex-shrink-0">
+            {/* Global Search */}
+            <div className="hidden sm:flex items-center gap-2 bg-muted rounded-lg px-3 py-2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+              <Search className="h-4 w-4" />
+              <span className="text-xs text-muted-foreground">Search</span>
+            </div>
+
+            {/* Dashboard Toggle */}
             <DashboardToggle currentDashboard={currentDashboard} />
-            <button className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-              Settings
+
+            {/* User Profile */}
+            <button className="flex items-center justify-center w-8 h-8 rounded-lg bg-muted text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors">
+              <User className="h-4 w-4" />
             </button>
           </div>
         </div>

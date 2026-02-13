@@ -11,8 +11,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        serif: ['Newsreader', 'serif'],
+        sans: ['Inter', 'Geist', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
