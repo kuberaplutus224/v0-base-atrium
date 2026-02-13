@@ -16,7 +16,7 @@ export default function IntelligencePanel({ dates }: IntelligencePanelProps) {
   }
 
   return (
-    <aside className="hidden lg:flex flex-col gap-6 w-80 border-l bg-background/50 p-6 overflow-y-auto" style={{ borderLeftColor: '#E6E1D9' }}>
+    <aside className="hidden lg:flex flex-col gap-6 w-80 border-l border-border bg-background/50 p-6 overflow-y-auto">
       <div>
         <h3 className="font-serif text-sm font-semibold text-foreground uppercase tracking-wide mb-4">
           Context Intelligence {dates && dates.length > 0

@@ -134,14 +134,14 @@ export default function ExecutiveSummary({ dates }: ExecutiveSummaryProps) {
               />
               <Bar
                 dataKey="revenue"
-                fill="#D1633C"
+                fill="hsl(var(--accent))"
                 radius={[4, 4, 0, 0]}
               >
                 {/* Highlight selected dates bars */}
                 {revenueData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={dates?.includes(entry.fullDate) ? '#D1633C' : '#D1633C80'}
+                    fill={dates?.includes(entry.fullDate) ? 'hsl(var(--accent))' : 'hsl(var(--accent) / 0.5)'}
                   />
                 ))}
               </Bar>

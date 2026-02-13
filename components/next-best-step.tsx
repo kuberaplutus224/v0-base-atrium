@@ -9,7 +9,7 @@ export default function NextBestStep() {
   if (isDismissed) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-secondary px-6 py-4" style={{ backgroundColor: '#F1ECE5' }}>
+    <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-secondary/50 dark:bg-secondary px-6 py-4">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 ml-80">
         <div className="flex flex-1 items-center gap-3">
           <div className="h-2 w-2 rounded-full bg-accent" />

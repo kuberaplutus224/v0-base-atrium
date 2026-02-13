@@ -198,14 +198,14 @@ export default function StatsModal({ isOpen, onClose, statType, dates }: StatsMo
                       <Line
                         type="monotone"
                         dataKey="value"
-                        stroke="#D1633C"
+                        stroke="hsl(var(--accent))"
                         strokeWidth={2}
                         dot={(props) => {
                           const { cx, cy, payload } = props;
                           if (dates?.includes(payload.fullDate)) {
-                            return <circle key={payload.fullDate} cx={cx} cy={cy} r={6} fill="#D1633C" stroke="white" strokeWidth={2} />;
+                            return <circle key={payload.fullDate} cx={cx} cy={cy} r={6} fill="hsl(var(--accent))" stroke="hsl(var(--card))" strokeWidth={2} />;
                           }
-                          return <circle key={payload.fullDate} cx={cx} cy={cy} r={4} fill="#D1633C" />;
+                          return <circle key={payload.fullDate} cx={cx} cy={cy} r={4} fill="hsl(var(--accent))" />;
                         }}
                         name={details.title}
                       />

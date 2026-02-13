@@ -48,7 +48,7 @@ export default function ScenarioSimulator({ dates }: ScenarioSimulatorProps) {
   const isPositiveImpact = projectedRevenueImpact >= 0
 
   return (
-    <div className="space-y-4 rounded-xl border bg-card p-6 shadow-sm" style={{ borderColor: '#E6E1D9' }}>
+    <div className="space-y-4 rounded-[10px] border border-border bg-card p-6 shadow-sm">
       {/* Title */}
       <div>
         <h3 className="font-serif text-sm font-semibold text-foreground tracking-tight">
@@ -75,7 +75,7 @@ export default function ScenarioSimulator({ dates }: ScenarioSimulatorProps) {
       </div>
 
       {/* Predicted Impact Box */}
-      <div className="space-y-4 rounded-lg bg-[#F1ECE5]/80 p-4 border border-[#E6E1D9]">
+      <div className="space-y-4 rounded-lg bg-secondary/50 dark:bg-secondary p-4 border border-border">
         <div className="grid grid-cols-2 gap-4">
           {/* Weekly Revenue */}
           <div className="space-y-1">
@@ -95,7 +95,7 @@ export default function ScenarioSimulator({ dates }: ScenarioSimulatorProps) {
         </div>
 
         {/* Insight */}
-        <div className="border-t border-[#E6E1D9] pt-3">
+        <div className="border-t border-border pt-3">
           <p className="text-[11px] text-muted-foreground italic leading-relaxed">
             {priceIncrease < 0.75
               ? 'Low friction adjustment. High probability of revenue lift with minimal customer churn.'
