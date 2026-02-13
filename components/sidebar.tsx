@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, X, LayoutDashboard, FileText, Settings, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown } from 'lucide-react'
 import TopPerformingStrategies from './top-performing-strategies'
 import AnalysisDetailModal from './analysis-detail-modal'
 
@@ -16,12 +16,6 @@ const historyItems = [
   'Customer Churn Analysis',
   'Pricing Strategy Review',
   'Weekly Performance',
-]
-
-const navItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', href: '/' },
-  { icon: FileText, label: 'Analytics', href: '/analytics' },
-  { icon: Settings, label: 'Settings', href: '/settings' },
 ]
 
 export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
@@ -49,25 +43,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       <aside
         className={`fixed left-0 top-[60px] h-[calc(100vh-60px)] w-80 bg-card/95 glass border-r border-border flex flex-col transition-all duration-300 ease-in-out z-40 ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
           }`}
-      >
-        {/* Navigation Icons - Compact */}
-        <div className="flex flex-col items-start px-4 py-6 gap-1 border-b border-border">
-          {navItems.map((item) => {
-            const Icon = item.icon
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                className="flex items-center gap-3 px-3 py-2 rounded-[10px] text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200 w-full text-sm font-medium"
-              >
-                <Icon className="h-5 w-5 flex-shrink-0" />
-                <span>{item.label}</span>
-              </a>
-            )
-          })}
-        </div>
-
-        {/* Main Content */}
+      >        {/* Main Content */}
         <div className="flex-1 overflow-y-auto">
           <div className="px-4 py-6 space-y-6">
             {/* Data Management Section */}

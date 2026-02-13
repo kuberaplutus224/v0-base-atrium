@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/popover'
 import { ThemeToggle } from './theme-toggle'
 import { NotificationBell } from './notification-bell'
-import { GlobalCommand } from './global-command'
 import DashboardToggle from './dashboard-toggle'
 
 import { DateRange } from 'react-day-picker'
@@ -107,8 +106,6 @@ export default function Header() {
 
           {/* Right: Actions */}
           <div className="flex items-center gap-2 flex-shrink-0">
-            {/* Global Command Palette */}
-            <GlobalCommand />
 
             {/* Notification Bell */}
             <NotificationBell />

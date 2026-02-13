@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { supabaseServer as supabase } from '@/lib/supabase-server'
 
 export async function GET() {
     try {
@@ -13,7 +13,7 @@ export async function GET() {
 
         return NextResponse.json({ data })
     } catch (error) {
-        console.error('Error fetching forecast data:', error)
+        console.error('Error fetching forecast data:')
         return NextResponse.json(
             { error: 'Failed to fetch forecast data' },
             { status: 500 }
