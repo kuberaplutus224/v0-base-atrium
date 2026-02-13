@@ -62,11 +62,11 @@ function AtriumContent() {
             <div className="space-y-12">
               {/* Primary Insights Row */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="rounded-2xl p-8 bg-[#F1ECE5]">
+                <div className="rounded-2xl p-8 bg-secondary/50 dark:bg-secondary">
                   <h2 className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mb-6">Executive Summary</h2>
                   <ExecutiveSummary dates={selectedDates} />
                 </div>
-                <div className="rounded-2xl p-8 bg-[#F1ECE5]">
+                <div className="rounded-2xl p-8 bg-secondary/50 dark:bg-secondary">
                   <h2 className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mb-6">Strategic Opportunities</h2>
                   <OpportunityDetection dates={selectedDates} />
                 </div>
@@ -74,15 +74,15 @@ function AtriumContent() {
 
               {/* Analytics Row */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="rounded-2xl p-8 bg-[#F1ECE5]">
+                <div className="rounded-2xl p-8 bg-secondary/50 dark:bg-secondary">
                   <h2 className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mb-6">System Alerts</h2>
                   <AnomalyDetectionAlerts dates={selectedDates} />
                 </div>
-                <div className="rounded-2xl p-8 bg-[#F1ECE5]">
+                <div className="rounded-2xl p-8 bg-secondary/50 dark:bg-secondary">
                   <h2 className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mb-6">Revenue Forecast</h2>
                   <PredictiveRevenueForecast dates={selectedDates} />
                 </div>
-                <div className="rounded-2xl p-8 bg-[#F1ECE5]">
+                <div className="rounded-2xl p-8 bg-secondary/50 dark:bg-secondary">
                   <h2 className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mb-6">Price Optimization</h2>
                   <DynamicPricingOptimization dates={selectedDates} />
                 </div>
@@ -90,22 +90,22 @@ function AtriumContent() {
 
               {/* Data Science Row */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="rounded-2xl p-8 bg-[#F1ECE5]">
+                <div className="rounded-2xl p-8 bg-secondary/50 dark:bg-secondary">
                   <h2 className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mb-6">Retention & Churn</h2>
                   <CustomerChurnRiskScoring dates={selectedDates} />
                 </div>
-                <div className="rounded-2xl p-8 bg-[#F1ECE5]">
+                <div className="rounded-2xl p-8 bg-secondary/50 dark:bg-secondary">
                   <h2 className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mb-6">Market Segments</h2>
                   <CustomerSegmentation dates={selectedDates} />
                 </div>
-                <div className="rounded-2xl p-8 bg-[#F1ECE5]">
+                <div className="rounded-2xl p-8 bg-secondary/50 dark:bg-secondary">
                   <h2 className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mb-6">Inventory Health</h2>
                   <InventoryOptimization dates={selectedDates} />
                 </div>
               </div>
 
               {/* Deep Analysis Row */}
-              <div className="rounded-2xl p-8 bg-[#F1ECE5]">
+              <div className="rounded-2xl p-8 bg-secondary/50 dark:bg-secondary">
                 <h2 className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mb-6">Attribution & Performance</h2>
                 <AttributionModeling dates={selectedDates} />
               </div>
@@ -114,14 +114,14 @@ function AtriumContent() {
         </main>
 
         {/* Intelligence Sidebar / Interaction Layer */}
-        <aside className="hidden xl:flex flex-col w-[450px] border-l border-[#E6E1D9] bg-white/50 backdrop-blur-sm overflow-y-auto scrollbar-hide">
+        <aside className="hidden xl:flex flex-col w-[450px] border-l border-border bg-card/95 glass overflow-y-auto scrollbar-hide">
           <div className="p-8 space-y-12">
             <div>
               <h2 className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mb-6">AI Conversationalist</h2>
               <ChatInterface dates={selectedDates} />
             </div>
 
-            <div className="pt-8 border-t border-[#E6E1D9]">
+            <div className="pt-8 border-t border-border">
               <h2 className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mb-6">Contextual Simulation</h2>
               <IntelligencePanel dates={selectedDates} />
             </div>
