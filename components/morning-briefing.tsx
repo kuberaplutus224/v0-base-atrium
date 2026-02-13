@@ -62,21 +62,21 @@ export default function MorningBriefing({ dates }: MorningBriefingProps) {
 
   if (loading) {
     return (
-      <div className="flex h-40 items-center justify-center rounded-[10px] border border-border bg-secondary p-6">
+      <div className="flex h-40 items-center justify-center rounded-[10px] border border-border bg-secondary/50 dark:bg-secondary p-6">
         <Loader2 className="h-5 w-5 animate-spin text-accent" />
       </div>
     )
   }
 
   return (
-    <div className="rounded-[10px] border border-border bg-secondary p-6 shadow-sm transition-all hover:shadow-md">
+    <div className="rounded-[10px] border border-border bg-secondary/50 dark:bg-secondary p-6 shadow-sm transition-all hover:shadow-md">
       <div className="flex items-start gap-4">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 flex-shrink-0">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 dark:bg-accent/20 flex-shrink-0">
           <Coffee className="h-5 w-5 text-accent" />
         </div>
         <div className="flex-1">
-          <h3 className="text-sm font-semibold text-foreground tracking-tight">The Base Report</h3>
-          <p className="mb-4 text-xs text-muted-foreground uppercase font-semibold tracking-widest">{dateText}</p>
+          <h3 className="text-sm font-semibold text-foreground dark:text-foreground tracking-tight">The Base Report</h3>
+          <p className="mb-4 text-xs text-muted-foreground dark:text-muted-foreground uppercase font-semibold tracking-widest">{dateText}</p>
           <ul className="space-y-3">
             {insights.length > 0 ? insights.map((point, idx) => (
               <li key={idx} className="flex items-start gap-3">
