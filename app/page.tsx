@@ -114,7 +114,7 @@ function DashboardContent() {
       <Header />
 
       {/* Main Content Wrapper */}
-      <div className="md:ml-80 flex flex-col h-[calc(100vh-74px)]">
+      <div className="md:ml-80 flex flex-col h-[calc(100vh-60px)]">
         {/* Ticker Row */}
         <TickerRow stats={stats} onStatClick={handleStatClick} />
 

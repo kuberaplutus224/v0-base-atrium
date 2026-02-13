@@ -1,4 +1,5 @@
 import { generateText } from 'ai'
+import { z } from 'zod'
 
 const systemPrompt = `You are Base, an advanced business intelligence layer for commerce operators. Your expertise includes:
 
@@ -14,20 +15,34 @@ const systemPrompt = `You are Base, an advanced business intelligence layer for 
 
 You provide actionable, specific advice tailored to merchants' businesses. You are analytical, professional, and direct. Offer practical solutions and ask clarifying questions when needed. Focus on helping operators understand their data, identify opportunities, and make informed business decisions. Respond as if you are the system logic behind their operations.`
 
+// Validation schema for chat messages
+const MessageSchema = z.object({
+  role: z.enum(['user', 'assistant']),
+  content: z.string().min(1).max(4000), // Limit message length
+})
+
+const ChatRequestSchema = z.object({
+  messages: z.array(MessageSchema).min(1).max(50), // Limit conversation length
+})
+
 export const maxDuration = 30
 
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const messages = body.messages || []
+
+    // Validate request structure
+    const validatedRequest = ChatRequestSchema.parse(body)
+    const messages = validatedRequest.messages
 
     if (!messages || messages.length === 0) {
       return Response.json({ error: 'No messages provided' }, { status: 400 })
     }
 
-    const formattedMessages = messages.map((msg: { role: string; content: string }) => ({
+    // Sanitize and format messages
+    const formattedMessages = messages.map((msg) => ({
       role: msg.role as 'user' | 'assistant',
-      content: msg.content,
+      content: msg.content.trim(), // Trim whitespace
     }))
 
     const result = await generateText({
@@ -63,7 +78,14 @@ export async function POST(req: Request) {
       },
     })
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error)
+    if (error instanceof z.ZodError) {
+      return Response.json(
+        { error: 'Invalid message format', details: error.errors },
+        { status: 400 }
+      )
+    }
+    console.error('Chat API error')
+    const message = error instanceof Error ? error.message : 'Unknown error'
     return Response.json({ error: message }, { status: 500 })
   }
 }

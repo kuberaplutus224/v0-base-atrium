@@ -1,15 +1,16 @@
 import React from "react"
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist } from 'next/font/google'
+import { ThemeProvider } from '@/components/theme-provider'
+import { GlobalCommand } from '@/components/global-command'
 
 import './globals.css'
 
 const _geist = Geist({ subsets: ['latin'] })
-const _geistMono = Geist_Mono({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Base',
-  description: 'Business intelligence layer for commerce operators',
+  title: 'Base - Data Intelligence',
+  description: 'Modern business intelligence layer for commerce operators',
   generator: 'v0.app',
 }
 
@@ -24,8 +25,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans antialiased">{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className="font-sans antialiased bg-background text-foreground">
+        <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem>
+          <GlobalCommand />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

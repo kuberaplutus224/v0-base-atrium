@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  darkMode: ['class'],
+  darkMode: ['selector', '[data-theme="dark"]'],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -11,8 +11,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        serif: ['Newsreader', 'serif'],
+        sans: ['Inter', 'Geist', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -61,6 +60,9 @@ const config: Config = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      backdropBlur: {
+        xs: '2px',
+      },
       keyframes: {
         'accordion-down': {
           from: {
@@ -86,11 +88,29 @@ const config: Config = {
             opacity: '1',
           },
         },
+        slideIn: {
+          from: {
+            transform: 'translateX(-100%)',
+          },
+          to: {
+            transform: 'translateX(0)',
+          },
+        },
+        slideOut: {
+          from: {
+            transform: 'translateX(0)',
+          },
+          to: {
+            transform: 'translateX(-100%)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         fadeIn: 'fadeIn 0.6s ease-out',
+        slideIn: 'slideIn 0.3s ease-out',
+        slideOut: 'slideOut 0.3s ease-in',
       },
     },
   },

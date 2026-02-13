@@ -55,8 +55,8 @@ export default function VibeCheck({
           style={{
             width: `${sentimentLevel}%`,
             background: isPositive
-              ? 'linear-gradient(90deg, #9CAF88 0%, #8BA876 100%)'
-              : 'linear-gradient(90deg, #B8956A 0%, #A68558 100%)',
+              ? 'hsl(var(--accent))'
+              : 'hsl(11, 76%, 59%)',
           }}
         />
       </div>
@@ -93,7 +93,7 @@ export default function VibeCheck({
                     <div
                       className="h-1.5 w-1.5 rounded-full"
                       style={{
-                        backgroundColor: isPositive ? '#9CAF88' : '#B8956A',
+                        backgroundColor: 'hsl(var(--accent))',
                       }}
                     />
                     <span className="text-xs text-foreground">{keyword}</span>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu } from 'lucide-react'
+import { Menu, X, LayoutDashboard, FileText, Settings, ChevronDown } from 'lucide-react'
 import TopPerformingStrategies from './top-performing-strategies'
 import AnalysisDetailModal from './analysis-detail-modal'
 
@@ -16,6 +16,12 @@ const historyItems = [
   'Customer Churn Analysis',
   'Pricing Strategy Review',
   'Weekly Performance',
+]
+
+const navItems = [
+  { icon: LayoutDashboard, label: 'Dashboard', href: '/' },
+  { icon: FileText, label: 'Analytics', href: '/analytics' },
+  { icon: Settings, label: 'Settings', href: '/settings' },
 ]
 
 export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
@@ -34,43 +40,60 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       {/* Mobile Toggle */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-50 rounded-lg p-2 text-foreground md:hidden"
+        className="fixed top-4 left-4 z-50 rounded-lg p-2 text-foreground md:hidden hover:bg-muted transition-colors"
       >
-        <Menu className="h-6 w-6" />
+        {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
       </button>
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-[154px] h-[calc(100vh-154px)] w-80 bg-background border-r border-border flex flex-col transition-transform duration-300 z-40 ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+        className={`fixed left-0 top-[60px] h-[calc(100vh-60px)] w-80 bg-card/95 glass border-r border-border flex flex-col transition-all duration-300 ease-in-out z-40 ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
           }`}
       >
-        {/* History Section */}
-        <div className="flex-1 overflow-y-auto border-b border-border">
-          <div className="px-6 pb-6">
-            {/* Upload Dashboard Link */}
-            <div className="-mt-0 mb-6">
-              <h3 className="font-serif text-xs font-semibold text-foreground uppercase tracking-wide mb-4">
+        {/* Navigation Icons - Compact */}
+        <div className="flex flex-col items-start px-4 py-6 gap-1 border-b border-border">
+          {navItems.map((item) => {
+            const Icon = item.icon
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                className="flex items-center gap-3 px-3 py-2 rounded-[10px] text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200 w-full text-sm font-medium"
+              >
+                <Icon className="h-5 w-5 flex-shrink-0" />
+                <span>{item.label}</span>
+              </a>
+            )
+          })}
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="px-4 py-6 space-y-6">
+            {/* Data Management Section */}
+            <div>
+              <h3 className="text-xs font-semibold text-foreground uppercase tracking-widest mb-3 px-1">
                 Data Management
               </h3>
               <a
                 href="/upload"
-                className="block w-full text-left px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/40 transition-colors"
+                className="flex items-center gap-2 px-3 py-2 rounded-[10px] text-sm text-muted-foreground hover:text-accent hover:bg-secondary/50 transition-all duration-200"
               >
-                📤 Upload Dashboard
+                <span>📤</span> Upload Dashboard
               </a>
             </div>
 
             {/* Analysis History */}
-            <div className="border-t border-border pt-6">
-              <h3 className="font-serif text-xs font-semibold text-foreground uppercase tracking-wide mb-4">
-                Analysis History
+            <div>
+              <h3 className="text-xs font-semibold text-foreground uppercase tracking-widest mb-3 px-1">
+                Recent Analyses
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-1">
                 {historyItems.map((item) => (
                   <button
                     key={item}
                     onClick={() => handleAnalysisClick(item)}
-                    className="w-full text-left px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/40 transition-colors"
+                    className="w-full text-left px-3 py-2 rounded-[10px] text-sm text-muted-foreground hover:text-accent hover:bg-secondary/50 transition-all duration-200 truncate"
                   >
                     {item}
                   </button>
@@ -79,31 +102,32 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
             </div>
 
             {/* Top Performing Strategies */}
-            <div className="border-t border-border pt-6 mt-6">
+            <div>
+              <h3 className="text-xs font-semibold text-foreground uppercase tracking-widest mb-3 px-1">
+                Top Strategies
+              </h3>
               <TopPerformingStrategies />
             </div>
           </div>
         </div>
 
-        {/* Account & Usage Section */}
-        <div className="border-t border-border p-6">
-          <h3 className="font-serif text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
-            System Logic Usage
+        {/* Usage Footer */}
+        <div className="border-t border-border p-4">
+          <h3 className="text-xs font-semibold text-foreground uppercase tracking-widest mb-3">
+            Logic Usage
           </h3>
-
-          {/* Progress Bar */}
-          <div className="space-y-2">
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-muted-foreground">
+          <div className="space-y-3">
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-muted-foreground">
                 {tokensUsed.toLocaleString()} / {maxTokens.toLocaleString()}
               </span>
-              <span className="text-xs font-semibold text-foreground">
+              <span className="font-semibold text-foreground">
                 {Math.round((tokensUsed / maxTokens) * 100)}%
               </span>
             </div>
-            <div className="h-1.5 w-full rounded-full bg-secondary/50 overflow-hidden">
+            <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-accent to-accent/70 transition-all duration-300"
+                className="h-full bg-accent transition-all duration-300"
                 style={{ width: `${(tokensUsed / maxTokens) * 100}%` }}
               />
             </div>
@@ -121,7 +145,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black/20 md:hidden"
+          className="fixed inset-0 z-30 bg-black/30 md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
