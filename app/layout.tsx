@@ -1,6 +1,8 @@
 import React from "react"
 import type { Metadata, Viewport } from 'next'
 import { Geist } from 'next/font/google'
+import { ThemeProvider } from '@/components/theme-provider'
+import { GlobalCommand } from '@/components/global-command'
 
 import './globals.css'
 
@@ -23,8 +25,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans antialiased bg-background text-foreground">{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className="font-sans antialiased bg-background text-foreground">
+        <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem>
+          <GlobalCommand />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

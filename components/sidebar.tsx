@@ -47,18 +47,18 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-[60px] h-[calc(100vh-60px)] w-80 bg-card border-r border-border flex flex-col transition-all duration-300 z-40 ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+        className={`fixed left-0 top-[60px] h-[calc(100vh-60px)] w-80 bg-card/95 glass border-r border-border flex flex-col transition-all duration-300 ease-in-out z-40 ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
           }`}
       >
         {/* Navigation Icons - Compact */}
-        <div className="flex flex-col items-start px-4 py-6 gap-2 border-b border-border">
+        <div className="flex flex-col items-start px-4 py-6 gap-1 border-b border-border">
           {navItems.map((item) => {
             const Icon = item.icon
             return (
               <a
                 key={item.label}
                 href={item.href}
-                className="flex items-center gap-3 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-all w-full text-sm font-medium"
+                className="flex items-center gap-3 px-3 py-2 rounded-[10px] text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200 w-full text-sm font-medium"
               >
                 <Icon className="h-5 w-5 flex-shrink-0" />
                 <span>{item.label}</span>
@@ -72,12 +72,12 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
           <div className="px-4 py-6 space-y-6">
             {/* Data Management Section */}
             <div>
-              <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3 px-1">
+              <h3 className="text-xs font-semibold text-foreground uppercase tracking-widest mb-3 px-1">
                 Data Management
               </h3>
               <a
                 href="/upload"
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
+                className="flex items-center gap-2 px-3 py-2 rounded-[10px] text-sm text-muted-foreground hover:text-accent hover:bg-secondary/50 transition-all duration-200"
               >
                 <span>📤</span> Upload Dashboard
               </a>
@@ -85,7 +85,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
 
             {/* Analysis History */}
             <div>
-              <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3 px-1">
+              <h3 className="text-xs font-semibold text-foreground uppercase tracking-widest mb-3 px-1">
                 Recent Analyses
               </h3>
               <div className="space-y-1">
@@ -93,7 +93,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                   <button
                     key={item}
                     onClick={() => handleAnalysisClick(item)}
-                    className="w-full text-left px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-all truncate"
+                    className="w-full text-left px-3 py-2 rounded-[10px] text-sm text-muted-foreground hover:text-accent hover:bg-secondary/50 transition-all duration-200 truncate"
                   >
                     {item}
                   </button>
@@ -103,7 +103,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
 
             {/* Top Performing Strategies */}
             <div>
-              <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3 px-1">
+              <h3 className="text-xs font-semibold text-foreground uppercase tracking-widest mb-3 px-1">
                 Top Strategies
               </h3>
               <TopPerformingStrategies />
@@ -113,7 +113,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
 
         {/* Usage Footer */}
         <div className="border-t border-border p-4">
-          <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
+          <h3 className="text-xs font-semibold text-foreground uppercase tracking-widest mb-3">
             Logic Usage
           </h3>
           <div className="space-y-3">
@@ -125,7 +125,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                 {Math.round((tokensUsed / maxTokens) * 100)}%
               </span>
             </div>
-            <div className="h-2 w-full rounded-full bg-secondary overflow-hidden">
+            <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
               <div
                 className="h-full bg-accent transition-all duration-300"
                 style={{ width: `${(tokensUsed / maxTokens) * 100}%` }}

@@ -31,6 +31,19 @@
     text-wrap: balance;
   }
 
+  /* Glassmorphism utilities */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  [data-theme="dark"] .glass {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
   /* Animations */
   .cascade-fade {
     animation: cascade-fade-in 0.4s ease-out forwards;
@@ -47,42 +60,90 @@
     animation: fade-in-scale 0.3s ease-out forwards;
     opacity: 0;
   }
+
+  /* Elevation system */
+  .elevation-1 {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .elevation-2 {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .elevation-3 {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .elevation-4 {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
 }
 
 @layer base {
   :root {
-    /* Indo-Nordic SaaS Palette */
-    --background: 0 0% 98%;
-    --foreground: 220 10% 16%;
+    /* Indo-Nordic Premium Palette - Light Mode */
+    --background: 36 18% 96.5%;
+    --foreground: 0 0% 17.6%;
     --card: 0 0% 100%;
-    --card-foreground: 220 10% 16%;
+    --card-foreground: 0 0% 17.6%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 10% 16%;
-    --primary: 220 10% 16%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 220 8% 84%;
-    --secondary-foreground: 220 10% 16%;
-    --muted: 220 5% 92%;
-    --muted-foreground: 220 5% 48%;
-    --accent: 200 85% 50%;
+    --popover-foreground: 0 0% 17.6%;
+    --primary: 0 0% 17.6%;
+    --primary-foreground: 36 18% 96.5%;
+    --secondary: 27 20% 92%;
+    --secondary-foreground: 0 0% 17.6%;
+    --muted: 27 15% 93%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 11 76% 59%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 220 8% 88%;
-    --input: 220 5% 93%;
-    --ring: 200 85% 50%;
-    --chart-1: 200 85% 50%;
-    --chart-2: 200 70% 45%;
-    --chart-3: 220 10% 30%;
-    --chart-4: 200 80% 60%;
-    --chart-5: 220 8% 70%;
-    --radius: 0.5rem;
+    --destructive-foreground: 0 0% 100%;
+    --border: 27 20% 88%;
+    --input: 27 15% 93%;
+    --ring: 11 76% 59%;
+    --chart-1: 11 76% 59%;
+    --chart-2: 0 0% 17.6%;
+    --chart-3: 36 18% 96.5%;
+    --chart-4: 27 20% 92%;
+    --chart-5: 0 0% 45%;
+    --radius: 0.625rem;
+  }
+
+  [data-theme="dark"] {
+    /* Indo-Nordic Premium Palette - Dark Mode */
+    --background: 0 0% 10%;
+    --foreground: 36 18% 96.5%;
+    --card: 0 0% 14%;
+    --card-foreground: 36 18% 96.5%;
+    --popover: 0 0% 14%;
+    --popover-foreground: 36 18% 96.5%;
+    --primary: 36 18% 96.5%;
+    --primary-foreground: 0 0% 10%;
+    --secondary: 0 0% 25%;
+    --secondary-foreground: 36 18% 96.5%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 11 76% 59%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 24%;
+    --input: 0 0% 20%;
+    --ring: 11 76% 59%;
+    --chart-1: 11 76% 59%;
+    --chart-2: 36 18% 96.5%;
+    --chart-3: 0 0% 14%;
+    --chart-4: 0 0% 25%;
+    --chart-5: 0 0% 65%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground font-sans;
@@ -95,58 +156,88 @@
     transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Custom scrollbars */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted));
-    border-radius: 4px;
-    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted-foreground));
-  }
-
-  /* Firefox scrollbars */
+@media (prefers-reduced-motion: reduce) {
   * {
-    scrollbar-color: hsl(var(--muted)) hsl(var(--background));
-    scrollbar-width: thin;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Firefox scrollbars */
+* {
+  scrollbar-color: hsl(var(--muted)) hsl(var(--background));
+  scrollbar-width: thin;
+}
+}
+
 @layer components {
-  .ambient-glow {
-    box-shadow: 0 0 0 1px hsl(var(--border)), inset 0 0 0 1px rgba(220, 220, 220, 0.05);
-  }
-
-  .subtle-border {
+  /* Border utilities */
+  .border-subtle {
     border: 1px solid hsl(var(--border));
-    box-shadow: inset 0 0 0 1px rgba(220, 220, 220, 0.05);
   }
 
-  /* SaaS Card Styles */
-  .saas-card {
-    @apply bg-card border border-border rounded-lg p-4 transition-all hover:shadow-md hover:border-muted-foreground/30;
+  .ambient-glow {
+    box-shadow: 0 0 0 1px hsl(var(--border));
   }
 
-  .saas-card-lg {
-    @apply bg-card border border-border rounded-lg p-6 transition-all hover:shadow-md hover:border-muted-foreground/30;
+  /* Card components with 10px radius */
+  .card-base {
+    @apply rounded-[10px] bg-card border border-border transition-all;
   }
 
-  /* Grid Alignment Utilities */
-  .grid-8 {
-    @apply p-2;
+  .card-interactive {
+    @apply card-base hover:border-border hover:shadow-md hover:shadow-black/5 cursor-pointer;
   }
 
-  .grid-16 {
-    @apply p-4;
+  .card-hover-lift {
+    @apply card-base hover:shadow-lg hover:shadow-black/5 hover:-translate-y-1 transition-all duration-200;
+  }
+
+  /* Dense table card for data engineering */
+  .table-card {
+    @apply rounded-[10px] border border-border overflow-hidden;
+  }
+
+  /* Status badge styles */
+  .status-badge {
+    @apply inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+
+  .status-success {
+    @apply status-badge bg-accent/10 text-accent;
+  }
+
+  .status-warning {
+    @apply status-badge bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400;
+  }
+
+  .status-error {
+    @apply status-badge bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400;
+  }
+
+  .status-info {
+    @apply status-badge bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400;
   }
 }
